@@ -1,0 +1,12 @@
+{
+  "name": "angular-seed",
+  "version": "1.0.0",
+  "description": "Angular Seed Project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Brady",
+  "license": "MIT",
+  "repository": "ryanbradynd05/angular-seed"
+}
