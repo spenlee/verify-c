@@ -8,5 +8,8 @@
   },
   "author": "Ryan Brady",
   "license": "MIT",
-  "repository": "ryanbradynd05/angular-seed"
+  "repository": "ryanbradynd05/angular-seed",
+  "devDependencies": {
+    "gulp": "^3.8.11"
+  }
 }
