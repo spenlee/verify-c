@@ -9,4 +9,6 @@ gulp.paths = {
   tasks: 'tasks'
 };
 
+gulp.plugins = require('gulp-load-plugins')();
+
 require('require-dir')('./' + gulp.paths.tasks);
