@@ -12,8 +12,10 @@
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-jscs": "^1.6.0",
+    "gulp-jshint": "^1.10.0",
     "gulp-load-plugins": "^0.10.0",
     "gulp-sequence": "^0.3.2",
+    "jshint-stylish": "^1.0.2",
     "require-dir": "^0.3.0"
   }
 }
