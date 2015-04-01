@@ -4,6 +4,7 @@ var gulp = require('gulp');
 
 gulp.paths = {
   app: 'app',
+  dist: 'dist',
   e2e: 'e2e',
   style: 'style',
   tasks: 'tasks'
