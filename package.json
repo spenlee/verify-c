@@ -10,6 +10,7 @@
   "license": "MIT",
   "repository": "ryanbradynd05/angular-seed",
   "devDependencies": {
+    "del": "^1.1.1",
     "gulp": "^3.8.11",
     "gulp-jscs": "^1.6.0",
     "gulp-jshint": "^1.10.0",
