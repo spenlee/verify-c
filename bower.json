@@ -1,0 +1,24 @@
+{
+  "name": "angular-seed",
+  "version": "1.0.0",
+  "homepage": "https://github.com/ryanbradynd05/angular-seed",
+  "authors": [
+    "Ryan Brady <ryanbradynd05@gmail.com>"
+  ],
+  "description": "Angular Seed Project",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "e2e",
+    "dist",
+    "style",
+    "tasks"
+  ],
+  "dependencies": {
+    "angular-ui-router": "~0.2.14",
+    "angular": "~1.3.15",
+    "bootstrap": "~3.3.4"
+  }
+}
