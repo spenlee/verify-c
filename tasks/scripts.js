@@ -4,7 +4,7 @@ var gulp = require('gulp');
 var paths = gulp.paths;
 var plugins = gulp.plugins;
 
-function packageDependencies(min) {
+function packageJsDependencies(min) {
   gulp.src([
     (min) ? 'bower_components/angular/angular.min.js' :
       'bower_components/angular/angular.js',
@@ -22,7 +22,7 @@ function packageDependencies(min) {
 }
 
 gulp.task('scripts', ['jscs', 'jshint'], function(done) {
-  packageDependencies(false);
+  packageJsDependencies(false);
   return gulp.src(paths.app + '/**/*.js')
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.concat('app.js'))
@@ -31,7 +31,7 @@ gulp.task('scripts', ['jscs', 'jshint'], function(done) {
 });
 
 gulp.task('scripts:prod', ['jscs', 'jshint'], function(done) {
-  packageDependencies(true);
+  packageJsDependencies(true);
   return gulp.src(paths.app + '/**/*.js')
       .pipe(plugins.sourcemaps.init())
       .pipe(plugins.concat('app.js'))
