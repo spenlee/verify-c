@@ -13,7 +13,8 @@ function packageJsDependencies(min) {
     (min) ? 'bower_components/bootstrap/dist/js/bootstrap.min.js' :
       'bower_components/bootstrap/dist/js/bootstrap.js',
     (min) ? 'bower_components/jquery/dist/jquery.min.js' :
-      'bower_components/jquery/dist/jquery.js'
+      'bower_components/jquery/dist/jquery.js',
+    'bower_components/modernizer/modernizr.js'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.js'))
