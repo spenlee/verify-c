@@ -15,3 +15,9 @@ gulp.plugins = require('gulp-load-plugins')({
 });
 
 require('require-dir')('./' + gulp.paths.tasks);
+
+gulp.task('default', function(done) {
+  gulp.start('build');
+})
+gulp.task('build', ['clean', 'scripts', 'style']);
+gulp.task('build:prod', ['clean', 'scripts:prod', 'style:prod'])
