@@ -5,6 +5,8 @@ var paths = gulp.paths;
 var plugins = gulp.plugins;
 
 function packageCssDependencies(min) {
+  gulp.src('bower_components/bootstrap/dist/fonts/**/*.*')
+    .pipe(gulp.dest(paths.dist + '/fonts'));
   gulp.src([
     (min) ? 'bower_components/bootstrap/dist/css/bootstrap.min.css' :
       'bower_components/bootstrap/dist/css/bootstrap.css',
