@@ -1,5 +1,6 @@
 'use strict';
 
 angular.module('app', [
-  'app.router'
+  'app.router',
+  'app.home'
 ]);
