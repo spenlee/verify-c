@@ -10,12 +10,15 @@ function packageJsDependencies(min) {
       'bower_components/jquery/dist/jquery.js',
     (min) ? 'bower_components/angular/angular.min.js' :
       'bower_components/angular/angular.js',
+    'bower_components/angular-ui-layout/src/ui-layout.js',
+    (min) ? 'bower_components/angular-animate/angular-animate.min.js' :
+      'bower_components/angular-animate/angular-animate.js',
     (min) ? 'bower_components/angular-ui-router/release/angular-ui-router.min.js' :
       'bower_components/angular-ui-router/release/angular-ui-router.js',
-    (min) ? 'bower_components/bootstrap/dist/js/bootstrap.min.js' :
-      'bower_components/bootstrap/dist/js/bootstrap.js',
-    (min) ? 'bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.min.js' :
-      'bower_components/jasny-bootstrap/dist/js/jasny-bootstrap.js',
+    (min) ? 'bower_components/angular-bootstrap/ui-bootstrap.min.js' :
+      'bower_components/angular-bootstrap/ui-bootstrap.js',
+    (min) ? 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js' :
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
     'bower_components/modernizer/modernizr.js'
   ])
   .pipe(plugins.sourcemaps.init())

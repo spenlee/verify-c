@@ -12,8 +12,7 @@ function packageCssDependencies(min) {
       'bower_components/bootstrap/dist/css/bootstrap.css',
     (min) ? 'bower_components/bootstrap/dist/css/bootstrap-theme.min.css' :
       'bower_components/bootstrap/dist/css/bootstrap-theme.css',
-    (min) ? 'bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.min.css' :
-      'bower_components/jasny-bootstrap/dist/css/jasny-bootstrap.css'
+    'bower_components/angular-ui-layout/src/ui-layout.css'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.css'))

@@ -1,11 +1,15 @@
 'use strict';
 
 angular.module('app.router', ['ui.router'])
-.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/home');
+.config(Config);
+
+Config.$inject = ['$stateProvider', '$urlRouterProvider'];
+
+function Config($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/');
   $stateProvider
-    .state('home', {
-      url: '/home',
-      templateUrl: 'home/home.html'
+    .state('root', {
+      url: '/',
+      templateUrl: 'root/root.html'
     });
-});
+}
