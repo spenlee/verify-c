@@ -4,7 +4,12 @@ angular.module('app', [
   'ngAnimate',
   'app.templates',
   'app.router',
-  'app.root',
+  'app.root', // menu
   'ui.bootstrap',
-  'ui.layout'
+  'ui.layout',
+  'app.login',
+  'app.team',
+  'app.tutorial',
+  'app.work',
+  'app.settings'
 ]);
