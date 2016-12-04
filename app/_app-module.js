@@ -13,4 +13,17 @@ angular.module('app', [
   'app.settings',
   'app.services',
   'ngMaterial'
-]);
+]).run(['$window', '$rootScope', '$state', function($window, $rootScope, $state) {
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+    var requireLogin = toState.data.requireLogin;
+    var currentUser = $window.sessionStorage.currentUser;
+
+    // if (requireLogin && !currentUser) {
+    //   event.preventDefault();
+    //   // login required page
+    //   console.log('LOGIN!!!!!');
+
+    //   return $state.go(toState.name, toParams);
+    // }
+  });
+}]);
