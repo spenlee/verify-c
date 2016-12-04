@@ -18,6 +18,6 @@ function SettingsViewController(ConstantsService) {
   };
 
   vm.showUrlToast = function() {
-    ConstantsService.toast('Base URL Set!', 'bottom center');
+    ConstantsService.toast('Base URL Set!', 'top center');
   };
 }

@@ -11,7 +11,14 @@ function Config($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('login', {
       url: '/login',
-      templateUrl: 'login/login.html',
+      template: '<login-view></login-view>',
+      data: {
+        'requireLogin': false
+      }
+    })
+    .state('sign-up', {
+      url: '/sign-up',
+      template: '<sign-up-view></sign-up-view>',
       data: {
         'requireLogin': false
       }
