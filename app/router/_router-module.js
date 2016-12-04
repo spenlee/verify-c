@@ -8,9 +8,9 @@ Config.$inject = ['$stateProvider', '$urlRouterProvider'];
 function Config($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
   $stateProvider
-    .state('root', {
+    .state('mainMenu', {
       url: '/',
-      templateUrl: 'root/root.html'
+      template: '<main-menu-view></main-menu-view>'
     });
   $stateProvider
     .state('login', {
@@ -35,6 +35,6 @@ function Config($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('settings', {
       url: '/settings',
-      templateUrl: 'settings/settings.html'
+      template: '<settings-view></settings-view>'
     });
 }

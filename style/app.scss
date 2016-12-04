@@ -5,3 +5,13 @@ body {
   font: 100% $font-stack;
   color: $primary-color;
 }
+
+// toast position center possibility
+/* 
+  Reference:
+  https://github.com/angular/material/issues/1773
+*/
+md-toast.md-center {
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+}

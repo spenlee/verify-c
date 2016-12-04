@@ -1,1 +1,16 @@
-SETTINGS
+<md-content>
+  <!-- <div layout="row"> -->
+    <form name="settingsForm" ng-submit="settings.setUrl(); settings.showUrlToast()" layout="row" layout-padding>
+      <div flex="30" flex-offset="30">
+        <md-input-container class="md-block">
+          <label>Base URL</label>
+          <input ng-model="settings.url" placeholder="e.g. (http://localhost:3000/api)">
+        </md-input-container>
+      </div>
+
+      <div flex>
+        <md-button type="submit" class="md-raised md-primary">Set URL</md-button>
+      </div>
+    </form>
+  <!-- </div> -->
+</md-content>

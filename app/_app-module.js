@@ -2,14 +2,15 @@
 
 angular.module('app', [
   'ngAnimate',
+  'ngMessages',
   'app.templates',
   'app.router',
-  'app.root', // menu
-  'ui.bootstrap',
-  'ui.layout',
+  'app.main-menu', // menu
   'app.login',
   'app.team',
   'app.tutorial',
   'app.work',
-  'app.settings'
+  'app.settings',
+  'app.services',
+  'ngMaterial'
 ]);
