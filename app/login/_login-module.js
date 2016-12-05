@@ -8,14 +8,20 @@ angular.module('app.login', [])
     templateUrl: 'login/login.html'
   });
 
-LoginViewController.$inject = ['RestService'];
-function LoginViewController(RestService) {
+LoginViewController.$inject = ['RestService', 'ConstantsService'];
+function LoginViewController(RestService, ConstantsService) {
   var vm = this;
-  vm.title = 'LOGIN';
-  // RestService.getUsers()
-  //   .then(function(res) {
-  //     vm.users = res.data;
-  //   });
 
-  // post login info. get validation.
+  vm.attemptLogin = function() {
+    RestService.postLogin({'email': vm.userAttempt.email, 'password': vm.userAttempt.password})
+      .then(function(res) {
+        ConstantsService.toast(res.data.message, 'top center');
+        ConstantsService.setCurrentUser(res.data.data);
+        // go to main menu, successful user
+        ConstantsService.redirectUrl('#/');
+      })
+      .catch(function(err) {
+        ConstantsService.displayError(err, 'top center')
+      });
+  };
 }

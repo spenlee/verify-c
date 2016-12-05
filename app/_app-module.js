@@ -25,12 +25,19 @@ angular.module('app', [
     ConstantsService) {
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
       var requireLogin = toState.data.requireLogin;
-      var currentUser = $window.sessionStorage.currentUser;
+      var currentUser = ConstantsService.getCurrentUser();
 
       if (requireLogin && !currentUser) {
         event.preventDefault();
         ConstantsService.toast('Please login', 'top center');
         return $state.go('login');
+      }
+
+      if (!requireLogin && currentUser) {
+        console.log(currentUser);
+        event.preventDefault();
+        ConstantsService.toast('Already logged in', 'top center');
+        return $state.go('app.mainMenu');
       }
     });
 }]);

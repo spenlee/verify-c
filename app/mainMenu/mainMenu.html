@@ -19,7 +19,7 @@
 
 </head>
 
-<a href="#" class="button tiny">Tiny Button</a>
+<a class="button tiny" ng-click="mainMenu.logOut()">Log out</a>
 <div class="row">
   <div class="small-3 small-centered columns">3 centered</div>
 </div>
@@ -49,7 +49,7 @@
 
 
 
-{{menu.title}}
+{{mainMenu.title}}
 HELLO
 
 <ul>
@@ -63,7 +63,7 @@ HELLO
 
 
 <pre>
-{{menu.users|json:4}}
+{{mainMenu.users|json:4}}
 </pre>
 
 <!-- <ui-layout options="{ flow : 'column' }">

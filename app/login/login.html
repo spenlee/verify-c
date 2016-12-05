@@ -1,51 +1,46 @@
-<head>
-        <meta charset="utf-8">
-        
-        <style>
-            #login {
-            	height: auto;
-            }
-            .beep {
-    			
-    		
-    			max-width: 100%;
-    			min-width: 100%;
-			}
-
-
-
-
-        </style>
-    </head>
-
-
-
 <div id="login" class="row">
-
  	<img class="small-12 large-5 columns beep" src="images/loginlog.jpg">
- 
 </div>
 
+<div class="row">
+  <div layout="row" layout-align="center none">
+    <form name="login.loginForm" ng-submit="login.attemptLogin()" layout="column">
+    	<div layout="row" layout-align="space-between center">
+        <!-- <label>Email</label> -->
+        <md-input-container class="md-icon-float md-block">
+          <md-icon md-font-icon="fa fa-user" aria-hidden="true"></md-icon>
+          <input required type="text" ng-model="login.userAttempt.email" placeholder="user@email.com"
+               name="email" />
+        </md-input-container>
+    	</div>
+    	<div layout="row" layout-align="space-between center">
+    	  <!-- <label>Password</label> -->
+        <md-input-container class="md-icon-float md-block">
+          <md-icon md-font-icon="fa fa-key" aria-hidden="true"></md-icon>
+      	  <input required type="password" ng-model="login.userAttempt.password" placeholder="********"
+                 name="password" />
+        </md-input-container>
+    	</div>
+    	<div layout="row" layout-align="space-between center">
+        <md-input-container class="">
+          <md-tooltip ng-if="login.loginForm.$invalid" md-direction="top">Email and password are required!</md-tooltip>
+          <md-button type="submit" class="md-raised md-primary"
+                     ng-disabled="login.loginForm.$invalid">Login</md-button>
+        </md-input-container>
+        <md-input-container class="">
+          <md-tooltip md-direction="top">Don't have an account?</md-tooltip>
+          <md-button class="md-raised md-accent" ng-href="#/sign-up">Register</md-button>
+        </md-input-container>
+    	</div>
+    </form>
+<!--           <label>
+            Email
+            <i class="fa fa-asterisk" aria-hidden="true" 
+               ng-if="signUp.signUpForm.email.$error"></i>
+          </label>
+          <input required type="text" name="email" ng-model="signUp.newUser.email"
+                 placeholder="user@email.com" /> -->
 
-
-
-
-
-  <div  class="row">
-    <div layout="row" layout-align="center none">
-      <form name="loginForm" ng-submit="login.authenticate()" layout="column" layout-padding>
-      	<div layout="row" layout-align="space-between center" layout-padding>
-          <label>Email</label>
-      	  <input type="text" ng-model="login.email" placeholder="user@email.com" />
-      	</div>
-      	<div layout="row" layout-align="space-between center" layout-padding>
-      	  <label>Password</label>
-      	  <input type="password" ng-model="login.password" placeholder="********" />
-      	</div>
-      	<div>
-          <md-button type="submit" class="md-raised md-primary">Submit</md-button>
-      	</div>
-      	<a ng-href="#/sign-up">Create an account</a>
-      </form>
-    </div>
+                 <!--  md-colors="{color:''}" -->
   </div>
+</div>

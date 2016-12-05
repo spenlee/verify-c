@@ -3,8 +3,8 @@
 angular.module('app.services')
   .factory('ConstantsService', ConstantsService);
 
-ConstantsService.$inject = ['$window', '$mdToast'];
-function ConstantsService($window, $mdToast) {
+ConstantsService.$inject = ['$window', '$mdToast', '$location'];
+function ConstantsService($window, $mdToast, $location) {
 
   var baseUrl = 'http://fa16-cs498rk-088.cs.illinois.edu:3000/api';
   if (!$window.sessionStorage.baseurl) {
@@ -25,6 +25,10 @@ function ConstantsService($window, $mdToast) {
 
   var setCurrentUser = function(user) {
     $window.sessionStorage.currentUser = user;
+  };
+
+  var removeCurrentUser = function() {
+    delete $window.sessionStorage.currentUser;
   };
 
   var toast = function(message, position) {
@@ -48,12 +52,23 @@ function ConstantsService($window, $mdToast) {
     }
   };
 
+  var redirectUrl = function(path) {
+    $location.path(path);
+  };
+
+  var reloadUrlToPath = function(path) {
+    $window.location.href = path;
+  };
+
   return {
     'setUrl': setUrl,
     'getUrl': getUrl,
     'setCurrentUser': setCurrentUser,
     'getCurrentUser': getCurrentUser,
+    'removeCurrentUser': removeCurrentUser,
     'toast': toast,
-    'displayError': displayError
+    'displayError': displayError,
+    'redirectUrl': redirectUrl,
+    'reloadUrlToPath': reloadUrlToPath
   };
 }

@@ -24,6 +24,12 @@ function RestService($http, ConstantsService) {
   var postSignUp = function(user) {
     return $http.post(ConstantsService.getUrl() + '/sign-up', user);
   };
+  var postLogin = function(user) {
+    return $http.post(ConstantsService.getUrl() + '/login', user);
+  };
+  var getLogout = function() {
+    return $http.get(ConstantsService.getUrl() + '/logout');
+  };
 
   return {
     'getUsers': getUsers,
@@ -31,6 +37,8 @@ function RestService($http, ConstantsService) {
     'getUsersById': getUsersById,
     'putUsersById': putUsersById,
     'deleteUsersById': deleteUsersById,
-    'postSignUp': postSignUp
+    'postSignUp': postSignUp,
+    'postLogin': postLogin,
+    'getLogout': getLogout
   };
 }
