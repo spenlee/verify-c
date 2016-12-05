@@ -16,6 +16,7 @@ function SignUpViewController(RestService, ConstantsService) {
     RestService.postSignUp({'email': vm.newUser.email, 'password': vm.newUser.password})
       .then(function(res) {
         ConstantsService.toast(res.data.message, 'top center');
+        ConstantsService.setCurrentUser(res.data);
       })
       .catch(function(err) {
         ConstantsService.displayError(err, 'top center');
