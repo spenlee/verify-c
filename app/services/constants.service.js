@@ -19,6 +19,14 @@ function ConstantsService($window, $mdToast) {
     $window.sessionStorage.baseurl = url;
   };
 
+  var getCurrentUser = function() {
+    return $window.sessionStorage.currentUser;
+  };
+
+  var setCurrentUser = function(user) {
+    $window.sessionStorage.currentUser = user;
+  };
+
   var toast = function(message, position) {
     // https://material.angularjs.org/latest/demo/toast -- demo
     var toast = $mdToast.simple()
@@ -34,9 +42,18 @@ function ConstantsService($window, $mdToast) {
     });
   };
 
+  var displayError = function(err, position) {
+    if (err && err.data) {
+      toast(err.data.message, position);
+    }
+  };
+
   return {
     'setUrl': setUrl,
     'getUrl': getUrl,
-    'toast': toast
+    'setCurrentUser': setCurrentUser,
+    'getCurrentUser': getCurrentUser,
+    'toast': toast,
+    'displayError': displayError
   };
 }
