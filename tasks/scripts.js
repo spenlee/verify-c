@@ -21,6 +21,8 @@ function packageJsDependencies(min) {
       'bower_components/angular-aria/angular-aria.js',
     (min) ? 'bower_components/angular-material/angular-material.min.js' :
       'bower_components/angular-material/angular-material.js',
+    (min) ? 'bower_components/angular-socket-io/socket.min.js' :
+      'bower_components/angular-socket-io/socket.js',
     (min) ? 'bower_components/what-input/what-input.min.js' :
       'bower_components/what-input/what-input.js',
     'bower_components/foundation-sites/dist/js/foundation.core.js',
