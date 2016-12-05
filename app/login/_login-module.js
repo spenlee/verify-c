@@ -21,7 +21,7 @@ function LoginViewController(RestService, ConstantsService) {
         ConstantsService.redirectUrl('#/');
       })
       .catch(function(err) {
-        ConstantsService.displayError(err, 'top center')
+        ConstantsService.displayError(err, 'top center');
       });
   };
 }
