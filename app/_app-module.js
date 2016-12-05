@@ -27,10 +27,10 @@ angular.module('app', [
       var requireLogin = toState.data.requireLogin;
       var currentUser = $window.sessionStorage.currentUser;
 
-      if (requireLogin && !currentUser) {
-        event.preventDefault();
-        ConstantsService.toast('Please login', 'top center');
-        return $state.go('login');
-      }
+      // if (requireLogin && !currentUser) {
+      //   event.preventDefault();
+      //   ConstantsService.toast('Please login', 'top center');
+      //   return $state.go('login');
+      // }
     });
 }]);
