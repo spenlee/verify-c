@@ -21,12 +21,16 @@ function RestService($http, ConstantsService) {
   var deleteUsersById = function(id) {
     return $http.delete(ConstantsService.getUrl() + '/users/' + id);
   };
+  var postSignUp = function(user) {
+    return $http.post(ConstantsService.getUrl() + '/sign-up', user);
+  };
 
   return {
     'getUsers': getUsers,
     'postUsers': postUsers,
     'getUsersById': getUsersById,
     'putUsersById': putUsersById,
-    'deleteUsersById': deleteUsersById
+    'deleteUsersById': deleteUsersById,
+    'postSignUp': postSignUp
   };
 }

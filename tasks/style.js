@@ -9,7 +9,9 @@ function packageCssDependencies(min) {
     .pipe(gulp.dest(paths.dist + '/fonts'));
   gulp.src([
     (min) ? 'bower_components/angular-material/angular-material.min.css' :
-      'bower_components/angular-material/angular-material.css'
+      'bower_components/angular-material/angular-material.css',
+    (min) ? 'bower_components/foundation-sites/dist/foundation.min.css' :
+      'bower_components/foundation-sites/dist/foundation.css'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.css'))

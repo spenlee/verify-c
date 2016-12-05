@@ -2,7 +2,6 @@
 
 angular.module('app', [
   'ngAnimate',
-  'ngMessages',
   'app.templates',
   'app.router',
   'app.main-menu', // menu
@@ -14,7 +13,8 @@ angular.module('app', [
   'app.settings',
   'app.services',
   'ngMaterial',
-  'btford.socket-io'
+  'btford.socket-io',
+  'ngMessages'
 ]).run([
   '$window',
   '$rootScope',
@@ -28,10 +28,10 @@ angular.module('app', [
       var requireLogin = toState.data.requireLogin;
       var currentUser = $window.sessionStorage.currentUser;
 
-      // if (requireLogin && !currentUser) {
-      //   event.preventDefault();
-      //   ConstantsService.toast('Please login', 'top center');
-      //   return $state.go('login');
-      // }
+      if (requireLogin && !currentUser) {
+        event.preventDefault();
+        ConstantsService.toast('Please login', 'top center');
+        return $state.go('login');
+      }
     });
 }]);
