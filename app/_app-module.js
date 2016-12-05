@@ -13,7 +13,8 @@ angular.module('app', [
   'app.work',
   'app.settings',
   'app.services',
-  'ngMaterial'
+  'ngMaterial',
+  'btford.socket-io'
 ]).run([
   '$window',
   '$rootScope',

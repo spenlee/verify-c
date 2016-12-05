@@ -21,6 +21,8 @@ function packageJsDependencies(min) {
       'bower_components/angular-aria/angular-aria.js',
     (min) ? 'bower_components/angular-material/angular-material.min.js' :
       'bower_components/angular-material/angular-material.js'
+    (min) ? 'bower_components/angular-socket-io/socket.min.js' :
+      'bower_components/angular-socket-io/socket.js'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.js'))
