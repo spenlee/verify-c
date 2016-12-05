@@ -20,7 +20,12 @@ function packageJsDependencies(min) {
     (min) ? 'bower_components/angular-aria/angular-aria.min.js' :
       'bower_components/angular-aria/angular-aria.js',
     (min) ? 'bower_components/angular-material/angular-material.min.js' :
-      'bower_components/angular-material/angular-material.js'
+      'bower_components/angular-material/angular-material.js',
+    (min) ? 'bower_components/what-input/what-input.min.js' :
+      'bower_components/what-input/what-input.js',
+    'bower_components/foundation-sites/dist/js/foundation.core.js',
+    (min) ? 'bower_components/foundation-sites/dist/foundation.min.js' :
+      'bower_components/foundation-sites/dist/foundation.js'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.js'))
