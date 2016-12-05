@@ -34,9 +34,16 @@ function ConstantsService($window, $mdToast) {
     });
   };
 
+  var displayError = function(err, position) {
+    if (err && err.data) {
+      toast(err.data.message, position);
+    }
+  };
+
   return {
     'setUrl': setUrl,
     'getUrl': getUrl,
-    'toast': toast
+    'toast': toast,
+    'displayError': displayError
   };
 }

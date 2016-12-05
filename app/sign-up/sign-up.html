@@ -1,24 +1,65 @@
 <md-content>
   <div layout-fill layout="column" layout-align="center none">
     <div layout="row" layout-align="center none">
-      <form name="signUpForm" ng-submit="signUp.authenticate()" layout="column" layout-padding>
-      	<div layout="row" layout-align="space-between center" layout-padding>
-          <label>Email</label>
-      	  <input type="text" ng-model="signUp.email" placeholder="user@email.com" />
+      <form name="signUp.signUpForm" ng-submit="signUp.attemptSignUp()" layout="column">
+      	<div layout="row" layout-align="space-between center">
+          <md-input-container class="">
+            <label>Email</label>
+            <input required name="email" ng-model="signUp.newUser.email" placeholder="user@email.com" ng-pattern="/^.+@.+\..+$/">
+            <div ng-messages="signUp.signUpForm.email.$error">
+              <ng-message when="required">Email is required.</ng-message>
+              <div ng-message="pattern">Email must look like an email (abc @ abc . com).</div>
+            </div>
+          </md-input-container>
       	</div>
-      	<div layout="row" layout-align="space-between center" layout-padding>
-      	  <label>Password</label>
-      	  <input type="password" ng-model="signUp.password" placeholder="********" />
+      	<div layout="row" layout-align="space-between center">
+          <md-input-container class="">
+            <label>Password</label>
+            <input required name="password" type="password" ng-model="signUp.newUser.password" placeholder="********">
+            <div ng-messages="signUp.signUpForm.password.$error">
+              <ng-message when="required">Password is required.</ng-message>
+            </div>
+          </md-input-container>
       	</div>
-        <div layout="row" layout-align="space-between center" layout-padding>
-          <label>Confirm Password</label>
-          <input type="password" ng-model="signUp.confirmPassword" placeholder="********" />
+        <div layout="row" name="confirmPassword" layout-align="space-between center">
+          <md-input-container class="">
+            <label>Confirm Password</label>
+            <input required name="confirmPassword" type="password" ng-model="signUp.newUser.confirmPassword" placeholder="********">
+            <div ng-messages="signUp.signUpForm.confirmPassword.$error">
+              <ng-message when="required">Please confirm password.</ng-message>
+            </div>
+          </md-input-container>
         </div>
+
+        <span ng-if="signUp.newUser.password !== signUp.newUser.confirmPassword">
+          <md-tooltip md-direction="top">Password and confirmation do not match!</md-tooltip>
+          <md-icon md-font-icon="fa fa-exclamation-triangle" class="md-warn"></md-icon>
+        </span>
+
+        <label md-colors="{color:'warn'}" ng-if="signUp.duplicateEmails[signUp.newUser.email]">
+          Email already exists!
+        </label>
+
       	<div>
-          <md-button type="submit" class="md-raised md-primary">Submit</md-button>
+          <md-input-container>
+            <md-tooltip ng-if="signUp.signUpForm.$invalid" md-direction="right">Email and password are required!</md-tooltip>
+            <md-button type="submit" class="md-raised md-primary"
+                     ng-disabled="signUp.signUpForm.$invalid || (signUp.newUser.password !== signUp.newUser.confirmPassword)">
+                     Submit
+            </md-button>
+          </md-input-container>
       	</div>
-      	<a ng-href="#/sign-up">Create an account</a>
       </form>
     </div>
   </div>
 </md-content>
+
+<!--           <label>
+            Email
+            <i class="fa fa-asterisk" aria-hidden="true" 
+               ng-if="signUp.signUpForm.email.$error"></i>
+          </label>
+          <input required type="text" name="email" ng-model="signUp.newUser.email"
+                 placeholder="user@email.com" /> -->
+
+                 <!--  md-colors="{color:''}" -->

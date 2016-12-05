@@ -8,14 +8,18 @@ angular.module('app.sign-up', [])
     templateUrl: 'sign-up/sign-up.html'
   });
 
-SignUpViewController.$inject = ['RestService'];
-function SignUpViewController(RestService) {
+SignUpViewController.$inject = ['RestService', 'ConstantsService'];
+function SignUpViewController(RestService, ConstantsService) {
   var vm = this;
-  vm.title = 'LOGIN';
-  // RestService.getUsers()
-  //   .then(function(res) {
-  //     vm.users = res.data;
-  //   });
-
-  // post login info. get validation.
+  vm.duplicateEmails = {};
+  vm.attemptSignUp = function() {
+    RestService.postSignUp({'email': vm.newUser.email, 'password': vm.newUser.password})
+      .then(function(res) {
+        ConstantsService.toast(res.data.message, 'top center');
+      })
+      .catch(function(err) {
+        ConstantsService.displayError(err, 'top center');
+        vm.duplicateEmails[vm.newUser.email] = true;
+      });
+  }
 }
