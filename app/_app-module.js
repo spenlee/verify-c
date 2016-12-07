@@ -10,6 +10,7 @@ angular.module('app', [
   'app.team',
   'app.tutorial',
   'app.work',
+  'app.messagesView',
   'app.settings',
   'app.services',
   'ngMaterial',
