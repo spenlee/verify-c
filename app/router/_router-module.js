@@ -36,7 +36,7 @@ function Config($stateProvider, $urlRouterProvider) {
     })
     .state('app.team', {
       url: '/team',
-      templateUrl: 'team/team.html'
+      template: '<team-view></team-view>'
     })
     .state('app.tutorial', {
       url: '/tutorial',

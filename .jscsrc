@@ -6,7 +6,6 @@
   "disallowKeywordsOnNewLine": [
     "else"
   ],
-  "disallowMixedSpacesAndTabs": true,
   "disallowMultipleLineBreaks": true,
   "disallowMultipleLineStrings": true,
   "disallowMultipleSpaces": true,
