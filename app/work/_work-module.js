@@ -20,8 +20,21 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
     var data = JSON.parse(e.data);
     if (data.type === 'file') {
       vm.list.push(data.data);
-      console.log(data.data);
-      //loadMessages();
+      $scope.$apply();
+    } else if (data.type === 'remove-file') {
+      _.remove(vm.list, {'_id': data.data});
+      if (vm.currentFile._id === data.data) {
+      	delete vm.currentFile;
+      	$scope.subSource = '';
+      }
+      $scope.$apply();
+    } else if (data.type === 'update-file') {
+      _.remove(vm.list, {'_id': data.data._id});
+      vm.list.push(data.data);
+      if (vm.currentFile._id === data.data._id) {
+      	vm.currentFile = data.data;
+      	$scope.subSource = data.data.content;
+      }
       $scope.$apply();
     }
   };
@@ -34,7 +47,6 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
   function loadFiles() {
     RestService.getFiles()
     .then(function(resp) {
-      console.log(resp.data.data);
       vm.list = resp.data.data;
     });
   }
@@ -56,7 +68,7 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
     console.log(id);
     RestService.deleteFilesById(id)
       .then(function(resp) {
-        _.remove(vm.list, {'_id': id});
+      	sock.send(JSON.stringify({'type': 'remove-file', 'data': id}));
       });
   };
 
@@ -73,8 +85,7 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
       RestService.putFilesById(vm.currentFile._id, {'name': vm.currentFile.name, 'content': $scope.subSource})
         .then(function(resp) {
           vm.currentFile = resp.data.data;
-          _.remove(vm.list, {'_id': vm.currentFile._id});
-          vm.list.push(vm.currentFile);
+          sock.send(JSON.stringify({'type': 'update-file', 'data': vm.currentFile}));
           ConstantsService.toast('Save Success!', 'top center');
         })
         .catch(function(err) {

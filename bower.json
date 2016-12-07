@@ -26,7 +26,6 @@
     "angular-ui-layout": "^1.4.2",
     "sockjs-client": "^1.1.1",
     "angular-lodash-module": "^1.2.0",
-    "angular-highlightjs": "^0.6.2",
     "codemirror": "^5.21.0",
     "angular-ui-codemirror": "^0.3.0"
   },

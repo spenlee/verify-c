@@ -21,10 +21,6 @@
 	</form>
   </ui-layout-container>
   <ui-layout-container size="50%">
-	<!-- <div hljs>{{files.currentView}}</div> -->
-<!-- <pre><code class="js code-area" contenteditable="true" spellcheck="false" ng-model="files.currentView">
-	var someCode = "hello";
-</code></pre> -->
 	<md-toolbar>
       <div class="md-toolbar-tools">
         <md-button aria-label="Save" ng-click="files.save()">
@@ -36,11 +32,7 @@
         </md-button>
       </div>
     </md-toolbar>
-<!-- 	<p style="width:500px; white-space:normal" contenteditable="true" spellcheck="false" hljs
-	     hljs-source="subSource" hljs-language="python">
-	</p> -->
 	<ui-codemirror ui-codemirror-opts="files.opts" ng-model="subSource"></ui-codemirror>
-<!-- <input type="text" ng-model="subSource" /> -->
   </ui-layout-container>
   <ui-layout-container size="25%">
 	<messages-view></messages-view>

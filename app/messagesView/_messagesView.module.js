@@ -21,8 +21,9 @@ function MessagesViewController(RestService, ConstantsService, $scope, _) {
     var data = JSON.parse(e.data);
     if (data.type === 'message') {
       vm.list.push(data.data);
-      console.log(data.data);
-      //loadMessages();
+      $scope.$apply();
+    } else if (data.type === 'remove-message') {
+      _.remove(vm.list, {'_id': data.data});
       $scope.$apply();
     }
   };
@@ -51,10 +52,10 @@ function MessagesViewController(RestService, ConstantsService, $scope, _) {
   };
 
   vm.delete = function(id) {
-    console.log(id);
     RestService.deleteMessagesById(id)
       .then(function(resp) {
-        _.remove(vm.list, {'_id': id});
+        console.log("remove");
+        sock.send(JSON.stringify({'type': 'remove-message', 'data': id}));
       });
   };
 }
