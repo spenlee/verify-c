@@ -91,7 +91,6 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
           vm.currentFile = resp.data.data;
           _.remove(vm.list, {'_id': vm.currentFile._id});
           vm.list.push(vm.currentFile);
-          $scope.$apply();
           ConstantsService.toast('Save Success!', 'top center');
         })
         .catch(function(err) {
