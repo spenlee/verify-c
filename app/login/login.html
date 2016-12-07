@@ -1,23 +1,57 @@
-<div id="login" class="row">
- 	<img class="small-12 large-5 columns beep" src="images/loginlog.jpg">
+<style>
+#login_box{
+  position: absolute;
+  top:70%;
+  left:50%;
+  transform: translate(-50%, -70%);
+  width:500px;
+  height:350px;
+  z-index: 1;
+  border-radius: 25px; 
+  background: cornsilk; 
+  opacity:0.95; 
+  border:solid; 
+  border-color:white;
+}
+#title{
+  font:white;
+  position: absolute;
+  top:10%;
+  left:50%;   
+  transform: translate(-50%, -10%);
+  font-family:Tahoma, Geneva, sans-serif;
+  color:white;
+  font-size:70px;
+}
+</style>
+
+
+  <img class="small-12 large-5 columns beep" src="images/log_in/background.jpg"
+   style="height:100vh; width: 100vw; position: relative;z-index: 0;">
+
+   <img src="images/log_in/logo_white.png"
+   style=" position:absolute; top:2vh; left:2vw; width: 6vw; height: 5vw;">
+
+<div class="row" id="title" >
+  Welcome to Collab
 </div>
 
-<div class="row">
+<div class="row" id="login_box">
   <div layout="row" layout-align="center none">
-    <form name="login.loginForm" ng-submit="login.attemptLogin()" layout="column">
+    <form name="login.loginForm" ng-submit="login.attemptLogin()" layout="column" style="opacity: 1;">
     	<div layout="row" layout-align="space-between center">
         <!-- <label>Email</label> -->
-        <md-input-container class="md-icon-float md-block">
+        <md-input-container class="md-icon-float md-block" >
           <md-icon md-font-icon="fa fa-user" aria-hidden="true"></md-icon>
-          <input required type="text" ng-model="login.userAttempt.email" placeholder="user@email.com"
+          <input style="padding-right: 100px" required type="text" ng-model="login.userAttempt.email" placeholder="user@email.com"
                name="email" />
         </md-input-container>
     	</div>
     	<div layout="row" layout-align="space-between center">
     	  <!-- <label>Password</label> -->
-        <md-input-container class="md-icon-float md-block">
+        <md-input-container class="md-icon-float md-block" >
           <md-icon md-font-icon="fa fa-key" aria-hidden="true"></md-icon>
-      	  <input required type="password" ng-model="login.userAttempt.password" placeholder="********"
+      	  <input style="padding-right: 100px" required type="password" ng-model="login.userAttempt.password" placeholder="********"
                  name="password" />
         </md-input-container>
     	</div>

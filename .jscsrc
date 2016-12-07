@@ -41,7 +41,6 @@
   "disallowSpacesInsideArrayBrackets": true,
   "disallowSpacesInsideParentheses": true,
   "disallowTrailingComma": true,
-  "disallowTrailingWhitespace": true,
   "excludeFiles": [
     "node_modules/**",
     "style/**"

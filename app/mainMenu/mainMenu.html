@@ -1,5 +1,6 @@
 <head>
   <style >
+  /*
     .beep12 {
           background: url("images/loginlog.jpg")no-repeat;
          background-size: all;
@@ -13,58 +14,122 @@
          width: 100%;
 
       }
- 
+ */
+ .background{
+  height:100vh;
+  width:100vw;
+  background-color:#ffd66A;
+  position: relative;
+}
+#title{
+  font:white;
+  position: absolute;
+  top:10%;
+  left:50%;   
+  transform: translate(-50%, -10%);
+  font-family:Tahoma, Geneva, sans-serif;
+  color:white;
+  font-size:50px;
+}
+
+
+/*tutorial*/
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
   </style>
 
 
 </head>
 
-<a class="button tiny" ng-click="mainMenu.logOut()">Log out</a>
-<div class="row">
-  <div class="small-3 small-centered columns">3 centered</div>
+
+
+<div class="background">
+   <img src="images/logo_white.png"
+   style=" position:absolute; top:2vh; left:2vw; width: 6vw; height: 5vw;">
+   <div class="row" id="title">Where would you like to start?</div>
+   <div class="row" style="height: 28vh"></div>
+   <div class="row">
+      <div class="large-offset-1 large-3 columns">
+        <a href="#/team">
+          <img src="images/menu/team.png" style=" width: 13vw; height: 13vw;">
+        </a>
+      </div>
+      <div class="large-offset-1 large-3 columns">
+        <a href="#/" id="myBtn" ng-click="mainMenu.modal()">
+           <img src="images/menu/tutorial.png" style=" width: 13vw; height: 13vw;">
+        </a>
+      </div>
+      <div class="large-offset-1 large-3 columns">
+        <a href="#/work">
+          <img src="images/menu/projects.png" style=" width: 13vw; height: 13vw;">
+        </a>
+      </div>
+   </div>
+   <div class="row">
+       <div class="large-offset-3 large-3 columns">
+        <a href="#/settings">
+            <img src="images/menu/settings.png" style=" width: 13vw; height: 13vw;">
+        </a>
+      </div>
+        <a ng-click="mainMenu.logOut()">
+          <img src="images/menu/logout.png" style=" width: 13vw; height: 13vw;position: relative;left:10%">
+        </a>
+   </div>
+
+<!--tutorial -->
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content" style="text-align: center;">
+    <span class="close" ng-click="mainMenu.close()">x</span>
+    <p style="font-family:Tahoma, Geneva, sans-serif;
+  color:#68bce9;font-size:50px;">
+  ----------------Tutorial----------------
+  </p>
+    <img src="images/menu/tutorial_modal.png">
+  </div>
+
 </div>
 
 
-<div>
-  <div class="row">
-    <span class="small-6 columns">
-      <button><img ng-src="images/loginlog.jpg"/></button>
-    </span>
-    <span class="small-6 columns beep2">
-       <button class="md-accent md-raised">
-          Project
-      </button>
-    </span>
-  </div>
 
-  <div class="row">
-    no i lie
-  </div>
-</div>
-
-
-
-
-
-
-
-
-{{mainMenu.title}}
-HELLO
-
-<ul>
-  <li><md-button><a href="#/work">Project</a></md-button></li>
-  <li><md-button>Team</md-button></li>
-  <li><md-button>Tutorial</md-button></li>
-  <li><md-button>Setting</md-button></li>
-  <li><md-button>Log out</md-button></li>
-</ul>
-
-
-
-<pre>
-{{mainMenu.users|json:4}}
-</pre>
 
 <!-- <ui-layout options="{ flow : 'column' }">
   <ui-layout-container>
