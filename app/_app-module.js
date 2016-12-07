@@ -16,7 +16,8 @@ angular.module('app', [
   'ngMaterial',
   'ngMessages',
   'ui.layout',
-  'lodash'
+  'lodash',
+  'hljs'
 ]).run([
   '$window',
   '$rootScope',

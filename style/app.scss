@@ -8,6 +8,16 @@ body {
   color: $primary-color;
 }
 
+.no-link-decoration {
+  text-decoration: none;
+  color: inherit;
+}
+
+.code-area {
+  height: 100vh;
+  overflow-y: auto;
+}
+
 /* LOGIN */
 #login {
 	height: auto;

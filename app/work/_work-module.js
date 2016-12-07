@@ -6,6 +6,22 @@ angular.module('app.work', [])
     bindings: {},
     controller: FilesViewController,
     templateUrl: 'work/work.html'
+  })
+  .directive('highlight', function($interpolate, $window) {
+    return {
+      restrict: 'EA',
+      scope: true,
+      compile: function(tElem, tAttrs) {
+        var interpolateFn = $interpolate(tElem.html(), true);
+        tElem.html(''); // disable automatic intepolation bindings
+                    
+        return function(scope, elem, attrs) {
+          scope.$watch(interpolateFn, function(value) {
+            elem.html(hljs.highlight('sql',value).value);
+          });
+        };
+      }
+    };
   });
 
 FilesViewController.$inject = ['RestService', 'ConstantsService', '$scope', '_'];
@@ -59,4 +75,29 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
         _.remove(vm.list, {'_id': id});
       });
   };
+
+  vm.changeView = function(file) {
+    $scope.subSource = file.content;
+    vm.currentFile = file;
+  };
+
+  vm.save = function() {
+    console.log(vm.currentFile);
+    if (!vm.currentFile) {
+      ConstantsService.toast('Not currently viewing a file!', 'top center');
+    } else {
+      RestService.putFilesById(vm.currentFile._id, {'name': vm.currentFile.name, 'content': $scope.subSource})
+        .then(function(resp) {
+          vm.currentFile = resp.data.data;
+          _.remove(vm.list, {'_id': vm.currentFile._id});
+          vm.list.push(vm.currentFile);
+          $scope.$apply();
+          ConstantsService.toast('Save Success!', 'top center');
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    }
+  };
+
 }
