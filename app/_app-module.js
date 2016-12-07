@@ -14,7 +14,8 @@ angular.module('app', [
   'app.services',
   'ngMaterial',
   'btford.socket-io',
-  'ngMessages'
+  'ngMessages',
+  'ui.layout'
 ]).run([
   '$window',
   '$rootScope',

@@ -23,11 +23,14 @@ function packageJsDependencies(min) {
       'bower_components/angular-material/angular-material.js',
     (min) ? 'bower_components/angular-socket-io/socket.min.js' :
       'bower_components/angular-socket-io/socket.js',
+    'bower_components/angular-socket-io/mock/socket-io.js',
     (min) ? 'bower_components/what-input/what-input.min.js' :
       'bower_components/what-input/what-input.js',
     'bower_components/foundation-sites/dist/js/foundation.core.js',
     (min) ? 'bower_components/foundation-sites/dist/foundation.min.js' :
-      'bower_components/foundation-sites/dist/foundation.js'
+      'bower_components/foundation-sites/dist/foundation.js',
+    (min) ? 'bower_components/angular-ui-layout/ui-layout.min.js' :
+      'bower_components/angular-ui-layout/src/ui-layout.js'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.js'))

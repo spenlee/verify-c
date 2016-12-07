@@ -1,36 +1,11 @@
-<div layout="row" style="background: orange">
-    <div class="flex">File(toggle button)</div>
-    <div class="flex-20">Chat(toggle button)</div>   
-</div>
-
-
-<div layout="row" >
-
-<div layout="column" flex >
-	<div layout="row">
-		<div flex='10' style="background: skyblue">
-			<ul>
-				<li>File 1</li>
-				<li>File 2</li>
-				<li>File 3</li>
-			</ul>
-		</div>
-
-		<div flex style='background: grey'>
-		  code
-		</div>
-	</div>
-	<div layout="row" flex style="background: purple">
-		Error messages
-	</div>
-</div>
-
-<div flex='20' style="background:yellow">
-	chat
- 	<form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-
-</div>
-
-</div>
+<ui-layout class="display-desktop" options="{ flow : 'column' }">
+  <ui-layout-container>
+	STUFF
+  </ui-layout-container>
+  <ui-layout-container size="50%">
+	STUFF
+  </ui-layout-container>
+  <ui-layout-container size="25%">
+	<messages-view></messages-view>
+  </ui-layout-container>
+</ui-layout>
