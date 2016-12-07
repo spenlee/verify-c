@@ -8,22 +8,9 @@ angular.module('app.work', [])
     templateUrl: 'work/messagesView.html'
   });
 
-MessagesViewController.$inject = ['RestService', 'ConstantsService'];
-function MessagesViewController(RestService, ConstantsService) {
+MessagesViewController.$inject = ['RestService', 'ConstantsService', '$scope', '_'];
+function MessagesViewController(RestService, ConstantsService, $scope, _) {
   var vm = this;
-  RestService.getMessages()
-    .then(function(resp) {
-      vm.messages = resp.data.data;
-    });
-
-  // vm.user = ConstantsService.getCurrentUser();
-
-  vm.post = function() {
-    RestService.postMessages({'content': vm.input, 'email': ConstantsService.getCurrentUser().email})
-      .then(function(resp) {
-        vm.input = ''; // clear input
-      });
-  };
 
   //var sock = new SockJS(ConstantsService.getUrl());
   var sock = new SockJS(ConstantsService.getUrl() + '/web-socket');
@@ -31,13 +18,43 @@ function MessagesViewController(RestService, ConstantsService) {
     console.log('open');
   };
   sock.onmessage = function(e) {
-    console.log(e.data);
+    var data = JSON.parse(e.data);
+    if (data.type === 'message') {
+      vm.list.push(data.data);
+      console.log(data.data);
+      //loadMessages();
+      $scope.$apply();
+    }
   };
   sock.onclose = function() {
     console.log('close');
   };
 
-  vm.send = function() {
-    sock.send('hello');
+  loadMessages();
+
+  function loadMessages() {
+    RestService.getMessages()
+    .then(function(resp) {
+      vm.list = resp.data.data;
+    });
+  }
+
+  // vm.user = ConstantsService.getCurrentUser();
+
+  vm.post = function() {
+    var content = {'content': vm.input, 'email': ConstantsService.getCurrentUser().email};
+    RestService.postMessages(content)
+      .then(function(resp) {
+        vm.input = ''; // clear input
+        sock.send(JSON.stringify({'type': 'message', 'data': resp.data.data}));
+      });
+  };
+
+  vm.delete = function(id) {
+    console.log(id);
+    RestService.deleteMessagesById(id)
+      .then(function(resp) {
+        _.remove(vm.list, {'_id': id});
+      });
   };
 }

@@ -4,10 +4,13 @@
 
 <md-list class="messages-list" flex>
   <md-subheader class="md-no-sticky">Messages</md-subheader>
-  <md-list-item class="md-2-line" ng-repeat="msg in messages.messages" ng-click="null">
+  <md-list-item class="md-2-line" ng-repeat="msg in messages.list" track by msg._id>
     <!-- <img ng-src="" class="md-avatar" alt="{{item.who}}" /> -->
 	  <div class="md-list-item-text" layout="column">
-	    <small>{{ msg.email }}</small>
+	    <div layout="row" layout-align="space-between center">
+	    	<small>{{ msg.email }}</small>
+	    	<a ng-click="messages.delete(msg._id)"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+	    </div>
 	    <h3>{{ msg.content }}</h3>
 	  </div>
   </md-list-item>
