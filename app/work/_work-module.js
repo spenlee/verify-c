@@ -6,7 +6,7 @@ angular.module('app.work', [])
     bindings: {},
     controller: FilesViewController,
     templateUrl: 'work/work.html'
-  })
+  });
 
 FilesViewController.$inject = ['RestService', 'ConstantsService', '$scope', '_'];
 function FilesViewController(RestService, ConstantsService, $scope, _) {
@@ -78,8 +78,11 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
   };
 
   vm.save = function() {
-    console.log(vm.currentFile);
-    if (!vm.currentFile) {
+  	updateContent();
+  };
+
+  function updateContent() {
+  	if (!vm.currentFile) {
       ConstantsService.toast('Not currently viewing a file!', 'top center');
     } else {
       RestService.putFilesById(vm.currentFile._id, {'name': vm.currentFile.name, 'content': $scope.subSource})
@@ -92,7 +95,7 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
           console.log(err);
         });
     }
-  };
+  }
 
   vm.opts = {
     'lineWrapping': true,
@@ -100,5 +103,10 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
     'mode': 'python',
     'theme': 'monokai'
   };
+
+  // $scope.$watch('subSource', function(oldContent, newContent) {
+  // 	console.log("change");
+  //   updateContent();
+  // });
 
 }
