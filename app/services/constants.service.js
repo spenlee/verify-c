@@ -20,15 +20,15 @@ function ConstantsService($window, $mdToast, $location) {
   };
 
   var getCurrentUser = function() {
-    return $window.sessionStorage.currentUser;
+    return JSON.parse($window.sessionStorage.getItem('currentUser'));
   };
 
   var setCurrentUser = function(user) {
-    $window.sessionStorage.currentUser = user;
+    $window.sessionStorage.setItem('currentUser', JSON.stringify(user));
   };
 
   var removeCurrentUser = function() {
-    delete $window.sessionStorage.currentUser;
+    $window.sessionStorage.removeItem('currentUser');
   };
 
   var toast = function(message, position) {
