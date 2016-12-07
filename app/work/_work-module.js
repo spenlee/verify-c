@@ -7,22 +7,6 @@ angular.module('app.work', [])
     controller: FilesViewController,
     templateUrl: 'work/work.html'
   })
-  .directive('highlight', function($interpolate, $window) {
-    return {
-      restrict: 'EA',
-      scope: true,
-      compile: function(tElem, tAttrs) {
-        var interpolateFn = $interpolate(tElem.html(), true);
-        tElem.html(''); // disable automatic intepolation bindings
-                    
-        return function(scope, elem, attrs) {
-          scope.$watch(interpolateFn, function(value) {
-            elem.html(hljs.highlight('sql',value).value);
-          });
-        };
-      }
-    };
-  });
 
 FilesViewController.$inject = ['RestService', 'ConstantsService', '$scope', '_'];
 function FilesViewController(RestService, ConstantsService, $scope, _) {
@@ -102,7 +86,8 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
   vm.opts = {
     'lineWrapping': true,
     'lineNumbers': true,
-    'mode': 'python'
+    'mode': 'python',
+    'theme': 'monokai'
   };
 
 }

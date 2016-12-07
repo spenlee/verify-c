@@ -13,9 +13,9 @@ body {
   color: inherit;
 }
 
-.code-area {
-  height: 100vh;
-  overflow-y: auto;
+/* edit CodeMirror settings css */
+.CodeMirror {
+  height: 90vh;
 }
 
 /* LOGIN */
