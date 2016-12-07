@@ -17,7 +17,8 @@ angular.module('app', [
   'ngMessages',
   'ui.layout',
   'lodash',
-  'hljs'
+  'hljs',
+  'ui.codemirror'
 ]).run([
   '$window',
   '$rootScope',

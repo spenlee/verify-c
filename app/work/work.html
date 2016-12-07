@@ -36,10 +36,11 @@
         </md-button>
       </div>
     </md-toolbar>
-	<div class="code-area" contenteditable="true" spellcheck="false" hljs
+<!-- 	<p style="width:500px; white-space:normal" contenteditable="true" spellcheck="false" hljs
 	     hljs-source="subSource" hljs-language="python">
-	</div>
-<input type="text" ng-model="subSource" />
+	</p> -->
+	<ui-codemirror ui-codemirror-opts="files.opts" ng-model="subSource"></ui-codemirror>
+<!-- <input type="text" ng-model="subSource" /> -->
   </ui-layout-container>
   <ui-layout-container size="25%">
 	<messages-view></messages-view>

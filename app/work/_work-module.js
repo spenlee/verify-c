@@ -99,4 +99,10 @@ function FilesViewController(RestService, ConstantsService, $scope, _) {
     }
   };
 
+  vm.opts = {
+    'lineWrapping': true,
+    'lineNumbers': true,
+    'mode': 'python'
+  };
+
 }
