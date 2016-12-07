@@ -1,5 +1,28 @@
-<md-content>
+<style>
+body{
+  background: #68bce9;
+  height:100vh;
+}
+
+#mainMenu{
+  color:#68bce9;
+  position: absolute;
+  top:3vh;
+  right:3vw;
+  font-family:Tahoma, Geneva, sans-serif;
+  font-size:20px;
+  padding:5px;
+  border:solid;
+  border-color:#68bce9;
+  border-radius: 10px;
+}
+
+</style>
+
+
+<md-content style="height:40vh;">
   <!-- <div layout="row"> -->
+  <div class="row" style="height:10vh"></div>
     <form name="settingsForm" ng-submit="settings.setUrl(); settings.showUrlToast()" layout="row" layout-padding>
       <div flex="30" flex-offset="30">
         <md-input-container class="md-block">
@@ -14,3 +37,10 @@
     </form>
   <!-- </div> -->
 </md-content>
+
+
+<a href="#features" style="font:#68bce9;">
+<div class="row " id="mainMenu">
+  Main Menu 
+</div>
+</a>
