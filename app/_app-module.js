@@ -10,11 +10,13 @@ angular.module('app', [
   'app.team',
   'app.tutorial',
   'app.work',
+  'app.messagesView',
   'app.settings',
   'app.services',
   'ngMaterial',
   'ngMessages',
-  'ui.layout'
+  'ui.layout',
+  'lodash'
 ]).run([
   '$window',
   '$rootScope',

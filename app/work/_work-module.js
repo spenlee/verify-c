@@ -1,43 +1,62 @@
 'use strict';
 
 angular.module('app.work', [])
-  .component('messagesView', {
-    controllerAs: 'messages',
+  .component('workView', {
+    controllerAs: 'files',
     bindings: {},
-    controller: MessagesViewController,
-    templateUrl: 'work/messagesView.html'
+    controller: FilesViewController,
+    templateUrl: 'work/work.html'
   });
 
-MessagesViewController.$inject = ['RestService', 'ConstantsService'];
-function MessagesViewController(RestService, ConstantsService) {
+FilesViewController.$inject = ['RestService', 'ConstantsService', '$scope', '_'];
+function FilesViewController(RestService, ConstantsService, $scope, _) {
   var vm = this;
-  RestService.getMessages()
-    .then(function(resp) {
-      vm.messages = resp.data.data;
-    });
 
-  // vm.user = ConstantsService.getCurrentUser();
-
-  vm.post = function() {
-    RestService.postMessages({'content': vm.input, 'email': ConstantsService.getCurrentUser().email})
-      .then(function(resp) {
-        vm.input = ''; // clear input
-      });
-  };
-
-  //var sock = new SockJS(ConstantsService.getUrl());
   var sock = new SockJS(ConstantsService.getUrl() + '/web-socket');
   sock.onopen = function() {
     console.log('open');
   };
   sock.onmessage = function(e) {
-    console.log(e.data);
+    var data = JSON.parse(e.data);
+    if (data.type === 'file') {
+      vm.list.push(data.data);
+      console.log(data.data);
+      //loadMessages();
+      $scope.$apply();
+    }
   };
   sock.onclose = function() {
     console.log('close');
   };
 
-  vm.send = function() {
-    sock.send('hello');
+  loadFiles();
+
+  function loadFiles() {
+    RestService.getFiles()
+    .then(function(resp) {
+      console.log(resp.data.data);
+      vm.list = resp.data.data;
+    });
+  }
+
+  vm.post = function() {
+    if (vm.fileName !== '') {
+      var content = {'content': '', 'name': vm.fileName};
+      RestService.postFiles(content)
+        .then(function(resp) {
+          vm.fileName = ''; // clear input
+          sock.send(JSON.stringify({'type': 'file', 'data': resp.data.data}));
+        });
+    } else {
+      ConstantsService.toast('Please enter a file name!', 'bottom center');
+    }
+  };
+
+  vm.delete = function(id) {
+    console.log(id);
+    RestService.deleteFilesById(id)
+      .then(function(resp) {
+        _.remove(vm.list, {'_id': id});
+      });
   };
 }

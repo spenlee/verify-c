@@ -72,6 +72,7 @@
     cursor: pointer;
 }
 
+
   </style>
 
 
@@ -82,33 +83,35 @@
 <div class="background">
    <img src="images/logo_white.png"
    style=" position:absolute; top:2vh; left:2vw; width: 6vw; height: 5vw;">
-   <div class="row" id="title">Where would you like to start?</div>
-   <div class="row" style="height: 28vh"></div>
+   <div class="row" id="title" style="font-size: 5vw">Where would you like to start?</div>
+   <div class="row" style="height: 30vh"></div>
+
    <div class="row">
-      <div class="large-offset-1 large-3 columns">
-        <a href="#/team">
-          <img src="images/menu/team.png" style=" width: 13vw; height: 13vw;">
+      <div class="large-offset-1 small-offset-1  large-3 columns Imageborder">
+        <a href="#/team" title="Team">
+          <img src="images/menu/team.png" style=" width: 15vw; height: 15vw;" alt="Team">
+           
         </a>
       </div>
-      <div class="large-offset-1 large-3 columns">
-        <a href="#/" id="myBtn" ng-click="mainMenu.modal()">
-           <img src="images/menu/tutorial.png" style=" width: 13vw; height: 13vw;">
+      <div class="large-offset-1 large-3 small-offset-3 small-12  columns Imageborder">
+        <a href="#/" id="myBtn" ng-click="mainMenu.modal()" title="Tutorial">
+           <img src="images/menu/tutorial.png" style=" width: 15vw; height: 15vw;" alt="Tutorial">
         </a>
       </div>
-      <div class="large-offset-1 large-3 columns">
-        <a href="#/work">
-          <img src="images/menu/projects.png" style=" width: 13vw; height: 13vw;">
+      <div class="large-offset-1 small-offset-1  large-3  columns Imageborder">
+        <a href="#/work" title="Projects">
+          <img src="images/menu/projects.png" style=" width: 15vw; height: 15vw;" alt="Projects">
         </a>
       </div>
    </div>
    <div class="row">
-       <div class="large-offset-3 large-3 columns">
-        <a href="#/settings">
-            <img src="images/menu/settings.png" style=" width: 13vw; height: 13vw;">
+       <div class="large-offset-3 large-3 small-offset-3 columns Imageborder">
+        <a href="#/settings" title="Settings">
+            <img src="images/menu/settings.png" style=" width: 15vw; height: 15vw;" alt="Settings">
         </a>
-      </div>
-        <a ng-click="mainMenu.logOut()">
-          <img src="images/menu/logout.png" style=" width: 13vw; height: 13vw;position: relative;left:10%">
+      </div class="large-offset-3 large-3 small-offset-3 columns Imageborder" >
+        <a ng-click="mainMenu.logOut()" title="Log Out">
+          <img src="images/menu/logout.png" style=" width: 15vw; height: 15vw;position: relative;left:10%" alt="Log Out">
         </a>
    </div>
 
@@ -121,7 +124,7 @@
     <span class="close" ng-click="mainMenu.close()">x</span>
     <p style="font-family:Tahoma, Geneva, sans-serif;
   color:#68bce9;font-size:50px;">
-  ----------------Tutorial----------------
+  Tutorial
   </p>
     <img src="images/menu/tutorial_modal.png">
   </div>

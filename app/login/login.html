@@ -4,7 +4,7 @@
   top:70%;
   left:50%;
   transform: translate(-50%, -70%);
-  width:500px;
+  width:350px;
   height:350px;
   z-index: 1;
   border-radius: 25px; 
@@ -32,8 +32,7 @@
    <img src="images/log_in/logo_white.png"
    style=" position:absolute; top:2vh; left:2vw; width: 6vw; height: 5vw;">
 
-<div class="row" id="title" >
-  Welcome to Collab
+<div class="row" id="title" > <span class="small-6 small-centered columns"> Welcome to Collab</span>
 </div>
 
 <div class="row" id="login_box">
@@ -43,7 +42,7 @@
         <!-- <label>Email</label> -->
         <md-input-container class="md-icon-float md-block" >
           <md-icon md-font-icon="fa fa-user" aria-hidden="true"></md-icon>
-          <input style="padding-right: 100px" required type="text" ng-model="login.userAttempt.email" placeholder="user@email.com"
+          <input style="padding-right: 70px" required type="text" ng-model="login.userAttempt.email" placeholder="user@email.com"
                name="email" />
         </md-input-container>
     	</div>
@@ -51,7 +50,7 @@
     	  <!-- <label>Password</label> -->
         <md-input-container class="md-icon-float md-block" >
           <md-icon md-font-icon="fa fa-key" aria-hidden="true"></md-icon>
-      	  <input style="padding-right: 100px" required type="password" ng-model="login.userAttempt.password" placeholder="********"
+      	  <input style="padding-right: 70px" required type="password" ng-model="login.userAttempt.password" placeholder="********"
                  name="password" />
         </md-input-container>
     	</div>

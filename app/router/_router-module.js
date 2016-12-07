@@ -44,7 +44,7 @@ function Config($stateProvider, $urlRouterProvider) {
     })
     .state('app.work', {
       url: '/work',
-      templateUrl: 'work/work.html'
+      template: '<work-view></work-view>'
     })
     .state('app.settings', {
       url: '/settings',

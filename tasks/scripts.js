@@ -29,7 +29,10 @@ function packageJsDependencies(min) {
     (min) ? 'bower_components/foundation-sites/dist/foundation.min.js' :
       'bower_components/foundation-sites/dist/foundation.js',
     (min) ? 'bower_components/angular-ui-layout/ui-layout.min.js' :
-      'bower_components/angular-ui-layout/src/ui-layout.js'
+      'bower_components/angular-ui-layout/src/ui-layout.js',
+    (min) ? 'bower_components/lodash/dist/lodash.min.js' :
+      'bower_components/lodash/dist/lodash.js',
+    'bower_components/angular-lodash-module/angular-lodash-module.js'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.js'))

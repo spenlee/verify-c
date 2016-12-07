@@ -48,6 +48,22 @@ function RestService($http, ConstantsService) {
     return $http.get(ConstantsService.getUrl() + '/logout');
   };
 
+  var getFiles = function(config) {
+    return $http.get(ConstantsService.getUrl() + '/files', config);
+  };
+  var postFiles = function(data) {
+    return $http.post(ConstantsService.getUrl() + '/files', data);
+  };
+  var getFilesById = function(id) {
+    return $http.get(ConstantsService.getUrl() + '/files/' + id);
+  };
+  // var putFilesById = function(id, data) {
+  //   return $http.put(ConstantsService.getUrl() + '/files/' + id, data);
+  // };
+  var deleteFilesById = function(id) {
+    return $http.delete(ConstantsService.getUrl() + '/files/' + id);
+  };
+
   return {
     'getUsers': getUsers,
     'postUsers': postUsers,
@@ -61,6 +77,11 @@ function RestService($http, ConstantsService) {
     'postMessages': postMessages,
     'getMessagesById': getMessagesById,
     // 'putMessagesById': putMessagesById,
-    'deleteMessagesById': deleteMessagesById
+    'deleteMessagesById': deleteMessagesById,
+    'getFiles': getFiles,
+    'postFiles': postFiles,
+    'getFilesById': getFilesById,
+    // 'putFilesById': putFilesById,
+    'deleteFilesById': deleteFilesById
   };
 }
