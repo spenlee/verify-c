@@ -21,6 +21,23 @@ function RestService($http, ConstantsService) {
   var deleteUsersById = function(id) {
     return $http.delete(ConstantsService.getUrl() + '/users/' + id);
   };
+
+  var getMessages = function(config) {
+    return $http.get(ConstantsService.getUrl() + '/messages', config);
+  };
+  var postMessages = function(data) {
+    return $http.post(ConstantsService.getUrl() + '/messages', data);
+  };
+  var getMessagesById = function(id) {
+    return $http.get(ConstantsService.getUrl() + '/messages/' + id);
+  };
+  // var putMessagesById = function(id, data) {
+  //   return $http.put(ConstantsService.getUrl() + '/messages/' + id, data);
+  // };
+  var deleteMessagesById = function(id) {
+    return $http.delete(ConstantsService.getUrl() + '/messages/' + id);
+  };
+
   var postSignUp = function(user) {
     return $http.post(ConstantsService.getUrl() + '/sign-up', user);
   };
@@ -39,6 +56,11 @@ function RestService($http, ConstantsService) {
     'deleteUsersById': deleteUsersById,
     'postSignUp': postSignUp,
     'postLogin': postLogin,
-    'getLogout': getLogout
+    'getLogout': getLogout,
+    'getMessages': getMessages,
+    'postMessages': postMessages,
+    'getMessagesById': getMessagesById,
+    // 'putMessagesById': putMessagesById,
+    'deleteMessagesById': deleteMessagesById
   };
 }
