@@ -11,7 +11,8 @@ function packageCssDependencies(min) {
     (min) ? 'bower_components/angular-material/angular-material.min.css' :
       'bower_components/angular-material/angular-material.css',
     (min) ? 'bower_components/foundation-sites/dist/foundation.min.css' :
-      'bower_components/foundation-sites/dist/foundation.css'
+      'bower_components/foundation-sites/dist/foundation.css',
+    'bower_components/angular-ui-layout/src/ui-layout.css'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.css'))
