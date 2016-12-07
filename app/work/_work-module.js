@@ -8,16 +8,23 @@ angular.module('app.work', [])
     templateUrl: 'work/messagesView.html'
   });
 
-MessagesViewController.$inject = ['RestService', 'ConstantsService', 'SocketService'];
-function MessagesViewController(RestService, ConstantsService, SocketService) {
+MessagesViewController.$inject = ['RestService', 'ConstantsService'];
+function MessagesViewController(RestService, ConstantsService) {
   var vm = this;
 
-  SocketService.on('newMessage', function(data) {
-    vm.messages = data;
-    ConstantsService.toast(data, 'top center');
-  });
+  //var sock = new SockJS(ConstantsService.getUrl());
+  var sock = new SockJS(ConstantsService.getUrl() + '/messages');
+  sock.onopen = function() {
+    console.log('open');
+  };
+  sock.onmessage = function(e) {
+    console.log(e.data);
+  };
+  sock.onclose = function() {
+    console.log('close');
+  };
 
   vm.send = function() {
-    SocketService.emit('newMessage', 'hello');
-  }
+    sock.send('hello');
+  };
 }

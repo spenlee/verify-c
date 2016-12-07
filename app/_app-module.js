@@ -13,7 +13,6 @@ angular.module('app', [
   'app.settings',
   'app.services',
   'ngMaterial',
-  'btford.socket-io',
   'ngMessages',
   'ui.layout'
 ]).run([
