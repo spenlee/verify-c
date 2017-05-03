@@ -17,14 +17,18 @@
   </div>
 </md-toolbar>
 
-<div layout="row">
-  
+<div layout="row" layout-margin layout-padding class="less-bottom-margin40">
+  <md-input-container class="md-block">
+    <label>Keyword Search</label>
+    <input type="text" ng-model="eventsView.searchInput" placeholder="e.g. protest">
+    <md-icon class="material-icons">search</md-icon>
+  </md-input-container>
 </div>
 
 <md-content flex>
   <md-list>
 
-    <md-list-item class="" ng-repeat="HIT in eventsView.list">
+    <md-list-item ng-repeat="HIT in eventsView.list | filter: eventsView.keywordFilter | orderBy: eventsView.orderBy : true ">
 
       <div class="md-list-item-text">
 
@@ -115,7 +119,7 @@
                 </fieldset> -->
               </md-input-container>
 
-              <md-input-container class="md-block">
+              <md-input-container class="md-block less-bottom-margin15">
                 <label>Citation (optional)</label>
                 <input type="text" ng-model="HIT.HITForm.citation" value="" placeholder="e.g. google">
               </md-input-container>
@@ -140,6 +144,7 @@
               <a ng-click="eventsView.toggleShowHIT(HIT)">
                 <small>"{{HIT.tweet.text | tweetDisplay}}"</small>
               </a>
+              <span><small>Yes: {{HIT.numYes}},&nbsp; No: {{HIT.numNo}}</small></span>
             </div>        
           </div>
         </div>

@@ -18,7 +18,7 @@ function SignUpViewController(RestService, ConstantsService, $location) {
         ConstantsService.toast(res.data.message, 'top center');
         ConstantsService.setCurrentUser(res.data.data);
         // go to main menu, successful user
-        ConstantsService.redirectUrl('#/');
+        ConstantsService.redirectUrl('#!/');
       })
       .catch(function(err) {
         ConstantsService.displayError(err, 'top center');
