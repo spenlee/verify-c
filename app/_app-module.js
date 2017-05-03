@@ -4,21 +4,15 @@ angular.module('app', [
   'ngAnimate',
   'app.templates',
   'app.router',
-  'app.main-menu', // menu
   'app.login',
   'app.sign-up',
-  'app.team',
-  'app.tutorial',
   'app.work',
-  'app.messagesView',
   'app.settings',
   'app.services',
   'ngMaterial',
   'ngMessages',
   'ui.layout',
-  'lodash',
-  'hljs',
-  'ui.codemirror'
+  'lodash'
 ]).run([
   '$window',
   '$rootScope',
@@ -42,7 +36,7 @@ angular.module('app', [
         console.log(currentUser);
         event.preventDefault();
         ConstantsService.toast('Already logged in', 'top center');
-        return $state.go('app.mainMenu');
+        return $state.go('app.work');
       }
     });
 }]);

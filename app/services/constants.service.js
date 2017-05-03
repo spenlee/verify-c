@@ -6,7 +6,7 @@ angular.module('app.services')
 ConstantsService.$inject = ['$window', '$mdToast', '$location'];
 function ConstantsService($window, $mdToast, $location) {
 
-  var baseUrl = 'http://fa16-cs498rk-088.cs.illinois.edu:3000/api';
+  var baseUrl = 'http://162.243.78.205:3000/api';
   if (!$window.sessionStorage.baseurl) {
     $window.sessionStorage.baseurl = baseUrl;
   }

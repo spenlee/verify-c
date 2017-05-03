@@ -1,40 +1,149 @@
-<ui-layout class="display-desktop" options="{ flow : 'column' }">
-  <ui-layout-container>
-	<md-list class="messages-list" flex>
-	  <md-subheader class="md-no-sticky">Files</md-subheader>
 
-	  <md-list-item class="md-1-line" ng-repeat="file in files.list" track by file._id>
-		  <div flex class="md-list-item-text" layout="row" layout-align="space-between center">
-		    	<div flex="50"><a class="no-link-decoration" ng-click="files.changeView(file)"><small>{{ file.name }}</small></a></div>
-		    	<div><a ng-click="files.delete(file._id)"><i class="fa fa-times-circle" aria-hidden="true"></i></a></div>
-		  </div>
-	  </md-list-item>
-	</md-list>
-	<form ng-submit="files.post()" layout="row" layout-padding>
-	  <div class="input-group">
-		  <span class="input-group-label"><i class="fa fa-file" aria-hidden="true"></i></span>
-		  <input class="input-group-field" type="text" ng-model="files.fileName">
-		  <div class="input-group-button">
-		    <input type="submit" class="button" value="New File">
-		  </div>
-		</div>
-	</form>
-  </ui-layout-container>
-  <ui-layout-container size="50%">
-	<md-toolbar>
-      <div class="md-toolbar-tools">
-        <md-button aria-label="Save" ng-click="files.save()">
-          Save
+<md-toolbar class="md-hue-2">
+  <div class="md-toolbar-tools">
+    <h3>
+      <a ng-click="eventsView.logOut()" ng-href="#!/login" title="Log Out">
+        <md-button aria-label="Log Out">
+          Log Out
         </md-button>
-        <span flex></span>
-        <md-button aria-label="Main Menu" ng-href="#/mainMenu">
-          Main Menu
-        </md-button>
+      </a>
+      <md-button ng-click="eventsView.loadEvents(eventsView.userID, true)" aria-label="Current Events">
+        Current
+      </md-button>
+      <md-button ng-click="eventsView.loadEvents(eventsView.userID, false)" aria-label="Past Events">
+        Past
+      </md-button>
+    </h3>
+  </div>
+</md-toolbar>
+
+<md-content flex>
+  <md-list>
+
+    <md-list-item class="" ng-repeat="HIT in eventsView.list">
+      <!-- <img ng-src="{{item.face}}" alt="{{item.who}}" class="md-avatar"> -->
+      <!-- BEGIN CURRENTS EVENT VIEW -->
+
+      <div class="md-list-item-text">
+        <!-- <p>{{eventsView.constants.question(HIT.eventTimestamp, HIT.HITKeywords)}}</p> -->
+        <div ng-if="eventsView.currentState">
+          <p>
+            Does this statement describe an <b>ongoing, real, physical </b> event that
+            happened around <b>{{HIT.eventTimestamp | date: "h:mm a 'on' EEE. MMM d, y"}}</b> related to <b>{{HIT.HITKeywords | keywordDisplay}}</b></p>
+            <h3>
+              <b>"{{HIT.tweet.text | tweetDisplay}}"</b>
+            </h3>
+
+            <img class="images" ng-src="{{HIT.tweet.image}}" />
+
+            <!-- User input if current events -->
+            <md-content layout-padding >
+              <form name="HIT.HITForm" ng-submit="eventsView.sendResponse(HIT.HITID, HIT.HITForm.answer, HIT.HITForm.source, HIT.HITForm.citation)">
+                <md-input-container class="md-block">
+                  <fieldset class="standard">
+                    <legend>Answer</legend>
+                    <md-radio-group  name="answer" ng-model="HIT.HITForm.answer" ng-required="true">
+                      <md-radio-button value="1">No</md-radio-button>
+                      <md-radio-button value="0">Yes</md-radio-button>
+                      <md-radio-button value="2">Uncertain</md-radio-button>
+                    </md-radio-group>
+                  </fieldset>
+                  <div ng-messages="HIT.HITForm.answer.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                  <fieldset class="standard">
+                    <legend>What is your source of information?</legend>
+                    <md-radio-group ng-model="HIT.HITForm.source">
+                      <md-radio-button value="0">I am a witness</md-radio-button>
+                      <md-radio-button value="1">Internet</md-radio-button>
+                      <md-radio-button value="2">Other</md-radio-button>
+                    </md-radio-group>
+                  </fieldset>
+  <!--               <fieldset class="standard">
+                  <legend>Do you have a source?</legend>
+                  <div layout-wrap layout="column">
+                    <div flex-gt-sm="50">
+                      <md-checkbox ng-model="HIT.HITForm.source[0]" aria-label="Checkbox 1">
+                        I am a witness
+                      </md-checkbox>
+                    </div>
+                    <div flex-gt-sm="50">
+                      <md-checkbox ng-model="HIT.HITForm.source[1]" aria-label="Checkbox 2" flex>
+                        Internet
+                      </md-checkbox>
+                  </div>
+                  <div flex-gt-sm="50">
+                    <md-checkbox ng-model="HIT.HITForm.source[2]" aria-label="Checkbox 3">
+                      Other
+                    </md-checkbox>
+                  </div>
+                </fieldset> -->
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                <label>Citation (optional)</label>
+                <input type="text" ng-model="HIT.HITForm.citation" value="" placeholder="e.g. google">
+              </md-input-container>
+
+              <!-- HIT submission -->
+              <!-- <md-tooltip ng-if="HIT.HITForm.answer.$error" md-direction="left">Please give an answer!</md-tooltip> -->
+              <md-button type="submit" class="md-raised md-primary" ng-disabled="HIT.HITForm.answer.$error">Submit Response</md-button>
+            </form>
+          </md-content>
+        </div> 
+        <!-- END OF CURRENT EVENTS DISPLAY -->
+
+        <!-- Stats if past events -->
+        <div ng-if="!eventsView.currentState">
+          <md-content layout-padding>
+            <p>
+              <b>Event Time:</b> {{HIT.eventTimestamp | date: "h:mm a 'on' EEE. MMM d, y"}}
+              <br>
+              <b>Keywords:</b> {{HIT.HITKeywords.join(", ")}}
+            </p>
+            <h3>
+              <b>"{{HIT.tweet.text | tweetDisplay}}"</b>
+            </h3>
+
+            <img class="images" ng-src="{{HIT.tweet.image}}" />
+            <p>
+              <h3>Responses</h3>
+              <br>
+              <b>Yes:</b> {{HIT.numYes}}
+              <br>
+              <b>No:</b> {{HIT.numNo}}
+              <br>
+              <b>Uncertain:</b> {{HIT.numUncertain}}
+              <br>
+              <b>Witnesses:</b> {{HIT.numSource1}}
+              <br>
+              <b>Internet sources:</b> {{HIT.numSource2}}
+              <br>
+              <b>Other sources:</b> {{HIT.numSourceOther}}
+              <br>
+              <b>Citations for yes:</b> {{HIT.citationsYes.join(", ")}}
+              <br>
+              <b>Citations for no:</b> {{HIT.citationsNo.join(", ")}}
+              <br>
+              <b>Citations for uncertain:</b> {{HIT.citationsUncertain.join(", ")}}
+              <br>
+            </p>
+
+            <p ng-if="HIT.response">
+              {{HIT.response}}
+            </p>
+
+          </md-content>
+        </div>
+        <!-- END of PAST EVENTS VIEW -->
+
       </div>
-    </md-toolbar>
-	<ui-codemirror ui-codemirror-opts="files.opts" ng-model="subSource"></ui-codemirror>
-  </ui-layout-container>
-  <ui-layout-container size="25%">
-	<messages-view></messages-view>
-  </ui-layout-container>
-</ui-layout>
+      <md-divider inset></md-divider>
+    </md-list-item>
+
+  </md-list>
+
+</md-content>

@@ -1,40 +1,3 @@
-<style>
-#login_box{
-  position: absolute;
-  top:70%;
-  left:50%;
-  transform: translate(-50%, -70%);
-  width:350px;
-  height:350px;
-  z-index: 1;
-  border-radius: 25px; 
-  background: cornsilk; 
-  opacity:0.95; 
-  border:solid; 
-  border-color:white;
-}
-#title{
-  font:white;
-  position: absolute;
-  top:10%;
-  left:50%;   
-  transform: translate(-50%, -10%);
-  font-family:Tahoma, Geneva, sans-serif;
-  color:white;
-  font-size:70px;
-}
-</style>
-
-
-  <img class="small-12 large-5 columns beep" src="images/log_in/background.jpg"
-   style="height:100vh; width: 100vw; position: relative;z-index: 0;">
-
-   <img src="images/log_in/logo_white.png"
-   style=" position:absolute; top:2vh; left:2vw; width: 6vw; height: 5vw;">
-
-<div class="row" id="title" > <span class="small-6 small-centered columns"> Welcome to Collab</span>
-</div>
-
 <div class="row" id="login_box">
   <div layout="row" layout-align="center none">
     <form name="login.loginForm" ng-submit="login.attemptLogin()" layout="column" style="opacity: 1;">
@@ -66,14 +29,5 @@
         </md-input-container>
     	</div>
     </form>
-<!--           <label>
-            Email
-            <i class="fa fa-asterisk" aria-hidden="true" 
-               ng-if="signUp.signUpForm.email.$error"></i>
-          </label>
-          <input required type="text" name="email" ng-model="signUp.newUser.email"
-                 placeholder="user@email.com" /> -->
-
-                 <!--  md-colors="{color:''}" -->
   </div>
 </div>

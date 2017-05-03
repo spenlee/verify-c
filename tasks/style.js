@@ -12,9 +12,7 @@ function packageCssDependencies(min) {
       'bower_components/angular-material/angular-material.css',
     (min) ? 'bower_components/foundation-sites/dist/foundation.min.css' :
       'bower_components/foundation-sites/dist/foundation.css',
-    'bower_components/angular-ui-layout/src/ui-layout.css',
-    'bower_components/codemirror/lib/codemirror.css',
-    'bower_components/codemirror/theme/monokai.css'
+    'bower_components/angular-ui-layout/src/ui-layout.css'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.css'))

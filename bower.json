@@ -17,7 +17,7 @@
     "tasks"
   ],
   "dependencies": {
-    "angular-ui-router": "~0.2.14",
+    "angular-ui-router": "~0.3.2",
     "angular": "~1.5.1",
     "modernizer": "~2.8.2",
     "angular-animate": "^1.5.8",

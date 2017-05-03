@@ -30,20 +30,8 @@ function Config($stateProvider, $urlRouterProvider) {
         'requireLogin': true
       }
     })
-    .state('app.mainMenu', {
-      url: '/',
-      template: '<main-menu-view></main-menu-view>'
-    })
-    .state('app.team', {
-      url: '/team',
-      template: '<team-view></team-view>'
-    })
-    .state('app.tutorial', {
-      url: '/tutorial',
-      templateUrl: 'tutorial/tutorial.html'
-    })
     .state('app.work', {
-      url: '/work',
+      url: '/',
       template: '<work-view></work-view>'
     })
     .state('app.settings', {

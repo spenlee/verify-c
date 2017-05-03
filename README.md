@@ -1,2 +1,5 @@
-# angular-seed
-Angular Seed Project
+# Verify Client
+
+Installation
+
+1) npm install

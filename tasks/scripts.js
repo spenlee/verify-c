@@ -32,13 +32,7 @@ function packageJsDependencies(min) {
       'bower_components/angular-ui-layout/src/ui-layout.js',
     (min) ? 'bower_components/lodash/dist/lodash.min.js' :
       'bower_components/lodash/dist/lodash.js',
-    'bower_components/angular-lodash-module/angular-lodash-module.js',
-    (min) ? 'bower_components/angular-highlightjs/angular-highlightjs.min.js' :
-      'bower_components/angular-highlightjs/angular-highlightjs.js',
-    'bower_components/codemirror/lib/codemirror.js',
-    'bower_components/codemirror/mode/python/python.js',
-    (min) ? 'bower_components/angular-ui-codemirror/ui-codemirror.min.js' :
-      'bower_components/angular-ui-codemirror/ui-codemirror.js'
+    'bower_components/angular-lodash-module/angular-lodash-module.js'
   ])
   .pipe(plugins.sourcemaps.init())
   .pipe(plugins.concat('vendor.js'))
