@@ -7,45 +7,69 @@
           Log Out
         </md-button>
       </a>
-      <md-button ng-click="eventsView.loadEvents(eventsView.userID, true)" aria-label="Current Events">
-        Current
+      <md-button ng-click="eventsView.loadEvents(eventsView.userID, true)" aria-label="Verify Events">
+        Verify
       </md-button>
-      <md-button ng-click="eventsView.loadEvents(eventsView.userID, false)" aria-label="Past Events">
-        Past
+      <md-button ng-click="eventsView.loadEvents(eventsView.userID, false)" aria-label="Evaluated Events">
+        Evaluated
       </md-button>
     </h3>
   </div>
 </md-toolbar>
 
+<div layout="row">
+  
+</div>
+
 <md-content flex>
   <md-list>
 
     <md-list-item class="" ng-repeat="HIT in eventsView.list">
-      <!-- <img ng-src="{{item.face}}" alt="{{item.who}}" class="md-avatar"> -->
-      <!-- BEGIN CURRENTS EVENT VIEW -->
 
       <div class="md-list-item-text">
-        <!-- <p>{{eventsView.constants.question(HIT.eventTimestamp, HIT.HITKeywords)}}</p> -->
-        <div ng-if="eventsView.currentState">
-          <p>
-            Does this statement describe an <b>ongoing, real, physical </b> event that
-            happened around <b>{{HIT.eventTimestamp | date: "h:mm a 'on' EEE. MMM d, y"}}</b> related to <b>{{HIT.HITKeywords | keywordDisplay}}</b></p>
-            <h3>
-              <b>"{{HIT.tweet.text | tweetDisplay}}"</b>
-            </h3>
 
-            <img class="images" ng-src="{{HIT.tweet.image}}" />
+        <!-- BEGIN CURRENTS EVENT VIEW -->
+        <!-- <p>{{eventsView.constants.question(HIT.eventTimestamp, HIT.HITKeywords)}}</p> -->
+
+        <div ng-if="eventsView.currentState">
+          <div ng-if="!HIT.show">
+            <div layout="row" layout-padding>
+              <div layout="column">
+                <b>{{HIT.HITKeywords.join(" ")}}</b>
+                <a ng-click="eventsView.toggleShowHIT(HIT)">
+                  <small>"{{HIT.tweet.text | tweetDisplay}}"</small>
+                </a>
+              </div>        
+            </div>
+          </div>
+          <div ng-if="HIT.show">
+            <a ng-click="eventsView.toggleShowHIT(HIT)">
+              <p>
+                Does this statement describe an <b>ongoing, real, physical event that
+                happened around {{HIT.eventTimestamp | date: "h:mm a 'on' EEE. MMM d, y"}}</b> related to <b>{{HIT.HITKeywords | keywordDisplay}}?</b>
+              </p>
+              <h3>
+                <b>"{{HIT.tweet.text | tweetDisplay}}"</b>
+              </h3>
+
+              <img class="images" ng-src="{{HIT.tweet.image}}" />
+            </a>
 
             <!-- User input if current events -->
-            <md-content layout-padding >
+            <md-content layout>
               <form name="HIT.HITForm" ng-submit="eventsView.sendResponse(HIT.HITID, HIT.HITForm.answer, HIT.HITForm.source, HIT.HITForm.citation)">
                 <md-input-container class="md-block">
                   <fieldset class="standard">
                     <legend>Answer</legend>
                     <md-radio-group  name="answer" ng-model="HIT.HITForm.answer" ng-required="true">
-                      <md-radio-button value="1">No</md-radio-button>
-                      <md-radio-button value="0">Yes</md-radio-button>
-                      <md-radio-button value="2">Uncertain</md-radio-button>
+                      <div layout="row" layout-align="space-around center">
+                        <span>No</span><span>Yes</span><span>Uncertain</span>
+                      </div>
+                      <div layout="row" layout-align="space-around center">
+                        <md-radio-button value="1" aria-label="No"></md-radio-button>
+                        <md-radio-button value="0" aria-label="Yes"></md-radio-button>
+                        <md-radio-button value="2" aria-label="Uncertain"></md-radio-button>
+                      </div>
                     </md-radio-group>
                   </fieldset>
                   <div ng-messages="HIT.HITForm.answer.$error">
@@ -56,12 +80,20 @@
                 <md-input-container class="md-block">
                   <fieldset class="standard">
                     <legend>What is your source of information?</legend>
-                    <md-radio-group ng-model="HIT.HITForm.source">
-                      <md-radio-button value="0">I am a witness</md-radio-button>
-                      <md-radio-button value="1">Internet</md-radio-button>
-                      <md-radio-button value="2">Other</md-radio-button>
-                    </md-radio-group>
+                    <md-radio-group  name="source" ng-model="HIT.HITForm.source" ng-required="true">
+                      <div layout="row" layout-align="space-around center">
+                        <span>I am a witness</span><span>Internet</span><span>Other</span>
+                      </div>
+                      <div layout="row" layout-align="space-around center">
+                        <md-radio-button value="0" aria-label="Witness"></md-radio-button>
+                        <md-radio-button value="1" aria-label="Internet"></md-radio-button>
+                        <md-radio-button value="2" aria-label="Other"></md-radio-button>
+                      </div>
+                    </md-radio-group>                  
                   </fieldset>
+                  <div ng-messages="HIT.HITForm.source.$error">
+                    <div ng-message="required">This is required.</div>
+                  </div>
   <!--               <fieldset class="standard">
                   <legend>Do you have a source?</legend>
                   <div layout-wrap layout="column">
@@ -90,15 +122,30 @@
 
               <!-- HIT submission -->
               <!-- <md-tooltip ng-if="HIT.HITForm.answer.$error" md-direction="left">Please give an answer!</md-tooltip> -->
-              <md-button type="submit" class="md-raised md-primary" ng-disabled="HIT.HITForm.answer.$error">Submit Response</md-button>
+              <md-button type="submit" class="md-raised md-primary" ng-disabled="HIT.HITForm.answer.$error || HIT.HITForm.source.$error">
+                Submit Response
+              </md-button>
             </form>
           </md-content>
-        </div> 
-        <!-- END OF CURRENT EVENTS DISPLAY -->
+        </div>
 
-        <!-- Stats if past events -->
-        <div ng-if="!eventsView.currentState">
-          <md-content layout-padding>
+      </div> 
+      <!-- END OF CURRENT EVENTS DISPLAY -->
+      <!-- Stats if past events -->
+      <div ng-if="!eventsView.currentState">
+        <div ng-if="!HIT.show">
+          <div layout="row" layout-padding>
+            <div layout="column">
+              <b>{{HIT.HITKeywords.join(" ")}}</b>
+              <a ng-click="eventsView.toggleShowHIT(HIT)">
+                <small>"{{HIT.tweet.text | tweetDisplay}}"</small>
+              </a>
+            </div>        
+          </div>
+        </div>
+        <!-- SHOW HIT -->
+        <div ng-if="HIT.show">
+          <a ng-click="eventsView.toggleShowHIT(HIT)">        
             <p>
               <b>Event Time:</b> {{HIT.eventTimestamp | date: "h:mm a 'on' EEE. MMM d, y"}}
               <br>
@@ -109,41 +156,75 @@
             </h3>
 
             <img class="images" ng-src="{{HIT.tweet.image}}" />
-            <p>
-              <h3>Responses</h3>
+          </a>
+          <md-content layout="column">
+            <p>Responses</p>
+            <div layout="row">
               <br>
-              <b>Yes:</b> {{HIT.numYes}}
-              <br>
-              <b>No:</b> {{HIT.numNo}}
-              <br>
-              <b>Uncertain:</b> {{HIT.numUncertain}}
-              <br>
-              <b>Witnesses:</b> {{HIT.numSource1}}
-              <br>
-              <b>Internet sources:</b> {{HIT.numSource2}}
-              <br>
-              <b>Other sources:</b> {{HIT.numSourceOther}}
-              <br>
-              <b>Citations for yes:</b> {{HIT.citationsYes.join(", ")}}
-              <br>
-              <b>Citations for no:</b> {{HIT.citationsNo.join(", ")}}
-              <br>
-              <b>Citations for uncertain:</b> {{HIT.citationsUncertain.join(", ")}}
-              <br>
-            </p>
+              <div layout="column" flex="33">
+                <b>Yes:</b> 
+                <b>No:</b> 
+                <b>Uncertain:</b> 
+              </div>
+              <div layout="column" flex="33">
+                {{HIT.numYes}}<br>
+                {{HIT.numNo}}<br>
+                {{HIT.numUncertain}}
+              </div>              
+              <div layout="column" flex="33">
+                {{HIT.yesP}}<br>
+                {{HIT.noP}}<br>
+                {{HIT.unP}}
+              </div>
+            </div>
 
-            <p ng-if="HIT.response">
-              {{HIT.response}}
-            </p>
-
+            <p>Sources</p>
+            <div layout="row">
+              <div layout="column" flex="33">
+                <b>Witnesses:</b> 
+                <b>Internet:</b> 
+                <b>Other sources:</b> 
+              </div>
+              <div layout="column" flex="33">
+                {{HIT.numSource1}}<br>
+                {{HIT.numSource2}}<br>
+                {{HIT.numSourceOther}}
+              </div>              
+              <div layout="column" flex="33">
+                {{HIT.s1P}}<br>
+                {{HIT.s2P}}<br>
+                {{HIT.s3P}}
+              </div>
+            </div>
+            <p></p>
+            <div layout="row">
+              <div layout="column" flex="50">
+                <b>Yes citations:</b>
+                <b>No citations:</b>
+                <b>Uncertain citations:</b>
+              </div>
+              <div layout="column" flex="50">
+                {{HIT.citationsYes.join(", ")}}<br>
+                {{HIT.citationsNo.join(", ")}}<br>
+                {{HIT.citationsUncertain.join(", ")}}
+              </div>              
+            </div>
           </md-content>
         </div>
-        <!-- END of PAST EVENTS VIEW -->
+        
 
+<!--           <p ng-if="HIT.response">
+            {{HIT.response}}
+          </p>
+        -->
       </div>
-      <md-divider inset></md-divider>
-    </md-list-item>
+      <!-- END of PAST EVENTS VIEW -->
 
-  </md-list>
+
+    </div>
+    <md-divider inset></md-divider>
+  </md-list-item>
+
+</md-list>
 
 </md-content>

@@ -84,11 +84,42 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
     .then(function(res) {
       // set new state
       vm.currentState = current;
-
-      // randomization
+      // past
       vm.list = res.data.data;
+      vm.list = _.map(vm.list, applyHide);
+
+      if (!current) {
+        vm.list = _.map(vm.list, applyPercent);
+      }
+      // randomization
       console.log(vm.list);
     });
+  };
+
+  vm.toggleShowHIT = function(HIT) {
+    HIT.show = !HIT.show;
+  };
+
+  function applyHide(HIT) {
+    HIT.show = false; // hide at first
+    return HIT;
+  }
+
+  function applyPercent(HIT) {
+    var totalAnswer = HIT.numYes + HIT.numNo + HIT.numUncertain;
+    var totalSource = HIT.numSource1 + HIT.numSource2 + HIT.numSourceOther;
+
+    HIT.yesP = getPercent(HIT.numYes, totalAnswer);
+    HIT.noP = getPercent(HIT.numNo, totalAnswer);
+    HIT.unP = getPercent(HIT.numUncertain, totalAnswer);
+    HIT.s1P = getPercent(HIT.numSource1, totalSource);
+    HIT.s2P = getPercent(HIT.numSource2, totalSource);
+    HIT.s3P = getPercent(HIT.numSourceOther, totalSource);
+    return HIT;
+  }
+
+  function getPercent(n1, n2) {
+    return n2 === 0 ? '' : "" + Math.floor((n1 / n2) * 100).toString() + "%";
   }
 
   vm.post = function() {
