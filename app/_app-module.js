@@ -11,7 +11,6 @@ angular.module('app', [
   'app.services',
   'ngMaterial',
   'ngMessages',
-  'ui.layout',
   'lodash'
 ]).run([
   '$window',

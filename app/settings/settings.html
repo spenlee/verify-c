@@ -1,46 +1,27 @@
-<style>
-body{
-  background: #68bce9;
-  height:100vh;
-}
 
-#mainMenu{
-  color:#68bce9;
-  position: absolute;
-  top:3vh;
-  right:3vw;
-  font-family:Tahoma, Geneva, sans-serif;
-  font-size:20px;
-  padding:5px;
-  border:solid;
-  border-color:#68bce9;
-  border-radius: 10px;
-}
+<md-toolbar class="md-hue-2">
+  <div class="md-toolbar-tools">
+    <h3>
+      <md-button ng-click="settings.logOut()" aria-label="Log Out">
+        Log Out
+      </md-button>
+      <a ng-href="#!/">
+        <md-button aria-label="Verify Events">
+          Verify
+        </md-button>
+      </a>
+    </h3>
+  </div>
+</md-toolbar>
 
-</style>
+<div layout="column" layout-margin layout-padding>
+  <form name="settingsForm" ng-submit="settings.setUrl(); settings.showUrlToast()">
+    <md-input-container class="md-block">
+      <label>Base URL</label>
+      <input ng-model="settings.url" placeholder="e.g. http://172.22.153.235:3000/api or http://162.243.78.205:3000/api">
+    </md-input-container>
 
-
-<md-content style="height:40vh;">
-  <!-- <div layout="row"> -->
-  <div class="row" style="height:10vh"></div>
-    <form name="settingsForm" ng-submit="settings.setUrl(); settings.showUrlToast()" layout="row" layout-padding>
-      <div flex="30" flex-offset="30">
-        <md-input-container class="md-block">
-          <label>Base URL</label>
-          <input ng-model="settings.url" placeholder="e.g. (http://localhost:3000/api)">
-        </md-input-container>
-      </div>
-
-      <div flex>
-        <md-button type="submit" class="md-raised md-primary">Set URL</md-button>
-      </div>
-    </form>
-  <!-- </div> -->
-</md-content>
-
-
-<a href="#features" style="font:#68bce9;">
-<div class="row " id="mainMenu">
-  Main Menu 
+    <md-button type="submit" class="md-raised md-primary">Set URL</md-button>
+  </form>
 </div>
-</a>
+

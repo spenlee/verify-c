@@ -8,8 +8,8 @@ angular.module('app.settings', [])
     templateUrl: 'settings/settings.html'
   });
 
-SettingsViewController.$inject = ['ConstantsService'];
-function SettingsViewController(ConstantsService) {
+SettingsViewController.$inject = ['ConstantsService', 'RestService'];
+function SettingsViewController(ConstantsService, RestService) {
   var vm = this;
   vm.url = ConstantsService.getUrl();
 
@@ -20,4 +20,15 @@ function SettingsViewController(ConstantsService) {
   vm.showUrlToast = function() {
     ConstantsService.toast('Base URL Set!', 'top center');
   };
+
+  vm.logOut = function() {
+    RestService.getLogout()
+    .then(function(res) {
+      ConstantsService.toast(res.data.message, 'top center');
+      ConstantsService.removeCurrentUser();
+        // reload, since $location won't change path
+        ConstantsService.reloadUrlToPath('#!/login');
+      });
+  };
+
 }

@@ -18,7 +18,19 @@ function SignUpViewController(RestService, ConstantsService, $location) {
         ConstantsService.toast(res.data.message, 'top center');
         ConstantsService.setCurrentUser(res.data.data);
         // go to main menu, successful user
-        ConstantsService.redirectUrl('#!/');
+
+        // loading events
+        ConstantsService.displayError('Loading...', 'top center');        
+        // New RestService request here -- populateEventsForUserPUT
+        vm.userID = ConstantsService.getCurrentUser()._id;
+        RestService.populateEventsForUser(vm.userID)
+          .then(function(res) {
+            // events loaded
+            ConstantsService.redirectUrl('#!/');          
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
       })
       .catch(function(err) {
         ConstantsService.displayError(err, 'top center');

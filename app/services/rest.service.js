@@ -3,8 +3,10 @@
 angular.module('app.services')
   .factory('RestService', RestService);
 
-RestService.$inject = ['$http', 'ConstantsService'];
-function RestService($http, ConstantsService) {
+RestService.$inject = ['$http', 'ConstantsService', '$cacheFactory'];
+function RestService($http, ConstantsService, $cacheFactory) {
+
+  var $httpCache = $cacheFactory.get('$http');
 
   var postEvents = function(data) {
     return $http.post(ConstantsService.getUrl() + '/events', data);
@@ -15,11 +17,23 @@ function RestService($http, ConstantsService) {
   };
 
   var clearEventsByUser = function(userID, data) {
-    return $http.put(ConstantsService.getUrl() + '/users' + '/' + userID + '/clear-events', data);
+    return $http.put(ConstantsService.getUrl() + '/users/' + userID + '/clear-events', data);
   };
 
-  var getEventsByUser = function(userID, currentBoolean, config) {
-    return $http.get(ConstantsService.getUrl() + '/users' + '/' + userID + '/events' + '/' + currentBoolean, config);
+  var removeCache = function(request) {
+    $httpCache.remove(request);
+  };
+
+  var getEventsByUserURL = function(userID, currentBoolean) {
+    return ConstantsService.getUrl() + '/users/' + userID + '/events/' + currentBoolean;
+  };
+
+  var getEventsByUser = function(userID, currentBoolean) {
+    return $http({
+      'method': 'GET',
+      'url': ConstantsService.getUrl() + '/users/' + userID + '/events/' + currentBoolean,
+      'cache': true // cache get results
+    });
   };
 
   var postResponses = function(data) {
@@ -37,6 +51,10 @@ function RestService($http, ConstantsService) {
     return $http.get(ConstantsService.getUrl() + '/logout');
   };
 
+  var populateEventsForUser = function(userID) {
+    return $http.put(ConstantsService.getUrl() + '/events/' + userID);
+  };  
+
   return {
     'postEvents': postEvents,
     'getEvents': getEvents,
@@ -45,6 +63,9 @@ function RestService($http, ConstantsService) {
     'postResponses': postResponses,
     'postSignUp': postSignUp,
     'postLogin': postLogin,
-    'getLogout': getLogout
+    'getLogout': getLogout,
+    'populateEventsForUser': populateEventsForUser,
+    'removeCache': removeCache,
+    'getEventsByUserURL': getEventsByUserURL
   };
 }

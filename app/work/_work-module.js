@@ -49,6 +49,9 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
   };
   sock.onmessage = function(e) {
     var data = JSON.parse(e.data);
+    //  upon notification of new event, remove cache reload
+
+    // upon notification of new user, events populated, load events.
     // if (data.type === 'file') {
 
     // } else if (data.type === 'remove-file') {
@@ -73,10 +76,14 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
 
     console.log(vm.userID);
     // vm.loadEvents(vm.userID, vm.currentState);
+    // on first load: remove cache, get new.
+    RestService.removeCache(RestService.getEventsByUserURL(vm.userID, true));
+
     RestService.getEventsByUser(vm.userID, true)
     .then(function(res) {
       // randomization
       vm.list = res.data.data;
+      console.log(vm.list);
     });
   }
 
@@ -94,23 +101,35 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
             return true;
           }
         }
+
+        var text = HIT.tweet.text;
+        var words = text.split(" ");
+        for (j = 0; j < words.length; j++) {
+          var word = words[j].toLowerCase();
+          // indexOf for text terms
+          // OR beginning partial matching
+          if (word.startsWith(searchWord)) {
+            return true;
+          }
+        }
       }
       return false;
     }
     else {
       return true;
     }
-  }
+  };
 
   vm.orderBy = function(HIT) {
     // only for evaluated section
     if (!vm.currentState) {
       return HIT.numYes;
     }
-  }
+  };
 
   // load current events
   vm.loadEvents = function(userID, current) {
+    // loaded events will always be cached - upon notification of new event, remove cache reload
     RestService.getEventsByUser(userID, current)
     .then(function(res) {
       // set new state
@@ -122,9 +141,26 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
       if (!current) {
         vm.list = _.map(vm.list, applyPercent);
       }
-      // randomization
+
+      // randomization - default since async, necessary since cache
+      if (current) {
+        vm.randomizeArray(vm.list);
+      }
       console.log(vm.list);
     });
+  };
+
+  vm.randomizeArray = function(array) {
+    var i = 0;
+    var j = 0;
+    var temp = null;
+
+    for (i = array.length - 1; i > 0; i -= 1) {
+      j = Math.floor(Math.random() * (i + 1));
+      temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
   };
 
   vm.toggleShowHIT = function(HIT) {
@@ -153,24 +189,6 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
     return n2 === 0 ? '' : "" + Math.floor((n1 / n2) * 100).toString() + "%";
   }
 
-  vm.post = function() {
-    // if (vm.fileName !== '') {
-    //   var content = {'content': '', 'name': vm.fileName};
-    //   RestService.postFiles(content)
-    //     .then(function(resp) {
-    //       vm.fileName = ''; // clear input
-    //       sock.send(JSON.stringify({'type': 'file', 'data': resp.data.data}));
-    //     });
-    // } else {
-    //   ConstantsService.toast('Please enter a file name!', 'bottom center');
-    // }
-  };
-
-  // $scope.$watch('subSource', function(oldContent, newContent) {
-  // 	console.log("change");
-  //   updateContent();
-  // });
-
   vm.sendResponse = function(HITID, answer, source, citation) {
     // source is not currently able to handle multiple values
     // if (source) {
@@ -193,6 +211,8 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
     .then(function(res) {
       ConstantsService.toast(res.data.message, 'top center');
         // temporary, reload after answer to get current state
+        // need to reload - remove cache before loading
+        RestService.removeCache(RestService.getEventsByUserURL(vm.userID, vm.currentState));
         vm.loadEvents(vm.userID, true);
       })
     .catch(function(err) {
