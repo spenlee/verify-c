@@ -48,12 +48,12 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
     console.log('open');
   };
   sock.onmessage = function(e) {
-    console.log(e);
+    // console.log(e);
     var data = JSON.parse(e.data);
     //  upon notification of new event, remove cache reload
     if (data.status === 'OK') {
       if (data.code === '0') {
-        console.log("notify");
+        // console.log("notify");
         // new event arrived
         // remove cache and reload
         // ConstantsService.toast('New Event Arrived', 'bottom center');
@@ -83,7 +83,7 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
     // notify icon
     vm.notification = false;
 
-    console.log(vm.userID);
+    // console.log(vm.userID);
     // vm.loadEvents(vm.userID, vm.currentState);
     // on first load: remove cache, get new.
     RestService.removeCache(RestService.getEventsByUserURL(vm.userID, true));
@@ -92,7 +92,7 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
     .then(function(res) {
       // randomization
       vm.list = res.data.data;
-      console.log(vm.list);
+      // console.log(vm.list);
     });
   }
 
@@ -155,7 +155,7 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
       if (current) {
         vm.randomizeArray(vm.list);
       }
-      console.log(vm.list);
+      // console.log(vm.list);
     });
   };
 
