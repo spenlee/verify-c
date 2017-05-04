@@ -48,17 +48,24 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
     console.log('open');
   };
   sock.onmessage = function(e) {
+    console.log(e);
     var data = JSON.parse(e.data);
     //  upon notification of new event, remove cache reload
-
-    // upon notification of new user, events populated, load events.
-    // if (data.type === 'file') {
-
-    // } else if (data.type === 'remove-file') {
-
-    // } else if (data.type === 'update-file') {
-
-    // }
+    if (data.status === 'OK') {
+      if (data.code === '0') {
+        console.log("notify");
+        // new event arrived
+        // remove cache and reload
+        // ConstantsService.toast('New Event Arrived', 'bottom center');
+        vm.notification = true;
+        $scope.$digest()
+        RestService.removeCache(RestService.getEventsByUserURL(vm.userID, true));
+        // in current, reload
+        if (vm.currentState) {
+          vm.loadEvents(vm.userID, vm.currentState);
+        }
+      }
+    }
   };
   sock.onclose = function() {
     console.log('close');
@@ -73,6 +80,8 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
     vm.currentState = true;
     // search input
     vm.searchInput = "";
+    // notify icon
+    vm.notification = false;
 
     console.log(vm.userID);
     // vm.loadEvents(vm.userID, vm.currentState);
@@ -210,11 +219,12 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
     RestService.postResponses(response)
     .then(function(res) {
       ConstantsService.toast(res.data.message, 'top center');
-        // temporary, reload after answer to get current state
-        // need to reload - remove cache before loading
-        RestService.removeCache(RestService.getEventsByUserURL(vm.userID, vm.currentState));
-        vm.loadEvents(vm.userID, true);
-      })
+      // temporary, reload after answer to get current state
+      // need to reload - remove cache before loading -- both
+      RestService.removeCache(RestService.getEventsByUserURL(vm.userID, vm.currentState));
+      RestService.removeCache(RestService.getEventsByUserURL(vm.userID, false));
+      vm.loadEvents(vm.userID, true);
+    })
     .catch(function(err) {
       console.log("post responses");
       console.log(err);
@@ -231,35 +241,8 @@ function EventsViewController(RestService, ConstantsService, $scope, _, $filter)
       });
   };
 
-  vm.constants = {
-    'question': function(timestamp, keywords) {
-      // TODO:: third param = optional timezone, timezone configuration
-      var timeDisplay = $filter('date')(timestamp, "h:mm a 'on' EEE. MMM d, y");
-      console.log(timeDisplay);
-      var keywordDisplay;
-      if (keywords.length === 1) {
-        keywordDisplay = keywords[0];
-      }
-      else if (keywords.length === 2) {
-        keywordDisplay = keywords[0] + ' or ' + keywords[1];
-      }
-      else if (keywords.length > 2) {
-        keywords.forEach(function(w) {
-          keywordDisplay += '"' + w + '"' + ', ';
-        });
-        keywordDisplay += 'or ' + '"' + keywords[keywords.length - 1] + '"'; 
-      }
-
-      var q = 'Does this statement describe an ongoing, real, physical event that ' +
-      'happened around ' + timeDisplay + ' related to ' + keywordDisplay + '?';
-      return q;
-    },
-    'text': function(tweetText) {
-      return tweetText;
-    },
-    'img': function(imgURL) {
-      return imgURL;
-    }
+  vm.dismissNotification = function() {
+    vm.notification = false;
   };
 
 }

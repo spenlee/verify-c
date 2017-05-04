@@ -22,9 +22,10 @@
     <md-icon class="material-icons">search</md-icon>
   </md-input-container>
   <a ng-href="#!/settings">
-    <md-button class="settings-icon" aria-label="Settings">
-      <md-icon class="material-icons">settings</md-icon>
-    </md-button>
+    <md-icon class="material-icons settings-icon">settings</md-icon>
+  </a>
+  <a ng-click="eventsView.dismissNotification()">
+    <md-icon ng-show="eventsView.notification" class="material-icons slight-red">new_releases</md-icon>
   </a>
 </div>
 
